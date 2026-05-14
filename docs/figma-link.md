@@ -28,3 +28,5 @@
 
 ## Цветовая палитра
 
+https://www.figma.com/design/4eKfHF2ForpjVDO378IEMG/Untitled?node-id=0-1&t=8fwkBqMPbes2Sh7R-1
+
