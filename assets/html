@@ -329,7 +329,7 @@
             color: white;
         }
 
-        /* МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ (СТИЛЬ КАК НА ФОТО) */
+        /* МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ */
         .movie-modal {
             display: none;
             position: fixed;
@@ -637,7 +637,7 @@
                 <a href="#">контакты</a>
             </div>
             <div class="search-wrapper">
-                <input type="text" class="search-input" placeholder="Search" id="globalSearch">
+                <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
             </div>
             <div class="account-icon" id="accountBtn">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -651,7 +651,7 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <div class="movie-badge">СМОТРЕТЬ</div>
+                <div class="movie-badge">СЕЙЧАС В КИНО</div>
                 <h1 class="movie-title">КРИК</h1>
                 <div class="movie-number">7</div>
                 <p class="description">
@@ -661,45 +661,45 @@
                     раз и навсегда положить конец кровопролитию.
                 </p>
                 <div class="button-group">
-                    <button class="btn-watch">СМОТРЕТЬ</button>
+                    <button class="btn-watch">СМОТРЕТЬ СЕЙЧАС</button>
                     <div class="in-theaters">
-                        <strong>В кино</strong><br>
-                        с 23-го мая.
+                        <strong>В кинотеатрах</strong><br>
+                        с 23 мая.
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="section">
-            <h2 class="section-title">Сейчас в кинотеатре</h2>
+            <h2 class="section-title">Сейчас в кинотеатрах</h2>
             <div class="movies-grid" id="moviesGrid">
                 <div class="movie-card" data-movie="scream7">
                     <div class="movie-card-img">
-                        <img src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Scream 7">
+                        <img src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Крик 7">
                     </div>
                     <div class="movie-card-info">
                         <h4>Крик 7</h4>
-                        <p>Когда убийца с Призрачным лицом появляется в тихом городке, который построил Сидни Прескотт..</p>
+                        <p>Когда убийца с Призрачным лицом появляется в тихом городке, где Сидни Прескотт построила...</p>
                         <p style="margin-top: 8px; color:#cd3c3c;">★ 4.8</p>
                     </div>
                 </div>
                 <div class="movie-card" data-movie="mrandmrssmith">
                     <div class="movie-card-img">
-                        <img src="https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg" alt="Mr. & Mrs. Smith">
+                        <img src="https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg" alt="Мистер и миссис Смит">
                     </div>
                     <div class="movie-card-info">
-                        <h4>Мистер и Миссис Смитт</h4>
+                        <h4>Мистер и миссис Смит</h4>
                         <p>Джон и Джейн поженились не так давно, но они уже устали от брака.</p>
                         <p style="margin-top: 8px; color:#cd3c3c;">★ 4.5</p>
                     </div>
                 </div>
                 <div class="movie-card" data-movie="fightclub">
                     <div class="movie-card-img">
-                        <img src="https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg" alt="Fight club">
+                        <img src="https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg" alt="Бойцовский клуб">
                     </div>
                     <div class="movie-card-info">
                         <h4>Бойцовский клуб</h4>
-                        <p>Бессонница, драки и мыло. Шедевр контркультуры Дэвида Финчера "это может быть"...</p>
+                        <p>Бессонница, драки и мыло. Шедевр контркультуры Дэвида Финчера, который может...</p>
                         <p style="margin-top: 8px; color:#cd3c3c;">★ 4.2</p>
                     </div>
                 </div>
@@ -717,12 +717,12 @@
                     <p>Адрес: Ул. Кино, 13, город Кино, 101000<br>
                         Email: support@cinemabooking.com<br>
                         Телефон: +7 (999) 123-45-67<br>
-                        Рабочие часы: ежедневно 10:00 - 22:00</p>
+                        Режим работы: ежедневно 10:00 - 22:00</p>
                 </div>
                 <div class="info-block">
-                    <h4>Бронирование</h4>
+                    <h4>бронирование</h4>
                     <p>Бронируйте свои любимые фильмы онлайн. Выбирайте места, дату и время показа. Мы предлагаем специальные предложения для групп и дисконтные карты.</p>
-                    <a href="#" style="display: inline-block; margin-top: 8px; color: #cd3c3c;">Бронировать</a>
+                    <a href="#" style="display: inline-block; margin-top: 8px; color: #cd3c3c;">Забронировать →</a>
                 </div>
             </div>
         </section>
@@ -730,25 +730,25 @@
 
     <footer>
         <p>© 2025 Cinema Booking — Все права защищены. Фильмы, афиши, расписание.</p>
-        <p style="margin-top: 10px;">🎬 Scream 7 · В кино с 23 мая · Билеты уже в продаже</p>
+        <p style="margin-top: 10px;">🎬 Крик 7 · В кино с 23 мая · Билеты уже в продаже</p>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ (как на фото) -->
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ -->
     <div id="movieModal" class="movie-modal">
         <div class="movie-modal-content">
             <span class="close-movie-modal">&times;</span>
             <div class="movie-modal-body">
                 <div class="movie-modal-poster">
-                    <img id="modalPoster" src="" alt="Movie poster">
+                    <img id="modalPoster" src="" alt="Постер фильма">
                 </div>
                 <div class="movie-modal-info">
-                    <h1 id="modalTitle" class="movie-modal-title">Мистер и Миссис Смитт</h1>
-                    <div id="modalSub" class="movie-modal-sub">Брэд Питт и Анджелина Джоли</div>
+                    <h1 id="modalTitle" class="movie-modal-title">Мистер и миссис Смит</h1>
+                    <div id="modalSub" class="movie-modal-sub">Брэд Питт · Анджелина Джоли</div>
                     
                     <div class="actors-row" id="actorsRow">
                         <div class="actor">
                             <div class="actor-name" id="actor1Name">Брэд Питт</div>
-                            <div class="actor-role" id="actor1Role">Анджелина Джоли</div>
+                            <div class="actor-role" id="actor1Role">Джон Смит</div>
                         </div>
                         <div class="actor">
                             <div class="actor-name" id="actor2Name">Анджелина Джоли</div>
@@ -773,11 +773,11 @@
                         </div>
                         <div class="detail-item">
                             <div class="detail-label">В кино</div>
-                            <div class="detail-value" id="modalDate">с 20-го мая</div>
+                            <div class="detail-value" id="modalDate">с 20 мая</div>
                         </div>
                     </div>
                     
-                    <button class="watch-now-btn" id="modalWatchBtn">СМОТРЕТЬ</button>
+                    <button class="watch-now-btn" id="modalWatchBtn">СМОТРЕТЬ СЕЙЧАС</button>
                 </div>
             </div>
         </div>
@@ -794,7 +794,7 @@
 
             <div id="login-form" class="form active-form">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Электронная почта</label>
                     <input type="email" id="loginEmail" placeholder="your@email.com">
                 </div>
                 <div class="form-group">
@@ -810,7 +810,7 @@
                     <input type="text" id="regName" placeholder="Иван">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Электронная почта</label>
                     <input type="email" id="regEmail" placeholder="your@email.com">
                 </div>
                 <div class="form-group">
@@ -825,50 +825,49 @@
     <script>
         // === ДАННЫЕ ФИЛЬМОВ ===
         const moviesData = {
-    scream7: {
-        title: "КРИК 7",
-        sub: "Возвращение Призрачного лица",
-        poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg",
-        desc: "Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого и навсегда положить конец кровавой бойне.",
-        year: "2025",
-        country: "США",
-        genre: "Ужасы, Триллер, Слэшер",
-        date: "с 23 мая",
-        actor1: "Нив Кэмпбелл",
-        actor2: "Кортни Кокс",
-        role1: "Сидни Прескотт",
-        role2: "Гейл Уэзерс"
-    },
-    mrandmrssmith: {
-        title: "Мистер и миссис Смит",
-        sub: "Брэд Питт · Анджелина Джоли",
-        poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg",
-        desc: "Джон и Джейн поженились не так давно, но уже устали от брака. Они чувствуют, что есть что-то, что каждый предпочитает держать при себе. Оба они наёмные убийцы, которые тайно путешествуют по миру, выполняя опасные миссии. Эти секретные приключения становятся их общей судьбой в тот момент, когда Джейн получает заказ на Джона, а Джон — на Джейн.",
-        year: "2005",
-        country: "США",
-        genre: "Боевик, Комедия, Триллер, Криминал",
-        date: "с 20 мая",
-        actor1: "Брэд Питт",
-        actor2: "Анджелина Джоли",
-        role1: "Джон Смит",
-        role2: "Джейн Смит"
-    },
-    fightclub: {
-        title: "Бойцовский клуб",
-        sub: "Брэд Питт · Эдвард Нортон",
-        poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg",
-        desc: "Страдающий бессонницей депрессивный мужчина (Эдвард Нортон) встречает странного продавца мыла по имени Тайлер Дёрден (Брэд Питт) и вскоре оказывается живущим в его убогом доме после того, как его идеальная квартира разрушена. Двое скучающих мужчин организуют подпольный бойцовский клуб как радикальную форму психотерапии, но клуб быстро превращается во нечто гораздо более тёмное.",
-        year: "1999",
-        country: "США",
-        genre: "Драма, Триллер, Культовое кино",
-        date: "Повторный показ классики",
-        actor1: "Брэд Питт",
-        actor2: "Эдвард Нортон",
-        role1: "Тайлер Дёрден",
-        role2: "Рассказчик"
-    }
-};
-
+            scream7: {
+                title: "КРИК 7",
+                sub: "Возвращение Призрачного лица",
+                poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg",
+                desc: "Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого и навсегда положить конец кровавой бойне.",
+                year: "2025",
+                country: "США",
+                genre: "Ужасы, Триллер, Слэшер",
+                date: "с 23 мая",
+                actor1: "Нив Кэмпбелл",
+                actor2: "Кортни Кокс",
+                role1: "Сидни Прескотт",
+                role2: "Гейл Уэзерс"
+            },
+            mrandmrssmith: {
+                title: "Мистер и миссис Смит",
+                sub: "Брэд Питт · Анджелина Джоли",
+                poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg",
+                desc: "Джон и Джейн поженились не так давно, но уже устали от брака. Они чувствуют, что есть что-то, что каждый предпочитает держать при себе. Оба они наёмные убийцы, которые тайно путешествуют по миру, выполняя опасные миссии. Эти секретные приключения становятся их общей судьбой в тот момент, когда Джейн получает заказ на Джона, а Джон — на Джейн.",
+                year: "2005",
+                country: "США",
+                genre: "Боевик, Комедия, Триллер, Криминал",
+                date: "с 20 мая",
+                actor1: "Брэд Питт",
+                actor2: "Анджелина Джоли",
+                role1: "Джон Смит",
+                role2: "Джейн Смит"
+            },
+            fightclub: {
+                title: "Бойцовский клуб",
+                sub: "Брэд Питт · Эдвард Нортон",
+                poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg",
+                desc: "Страдающий бессонницей депрессивный мужчина (Эдвард Нортон) встречает странного продавца мыла по имени Тайлер Дёрден (Брэд Питт) и вскоре оказывается живущим в его убогом доме после того, как его идеальная квартира разрушена. Двое скучающих мужчин организуют подпольный бойцовский клуб как радикальную форму психотерапии, но клуб быстро превращается во нечто гораздо более тёмное.",
+                year: "1999",
+                country: "США",
+                genre: "Драма, Триллер, Культовое кино",
+                date: "Повторный показ классики",
+                actor1: "Брэд Питт",
+                actor2: "Эдвард Нортон",
+                role1: "Тайлер Дёрден",
+                role2: "Рассказчик"
+            }
+        };
 
         // Элементы модального окна фильмов
         const movieModal = document.getElementById('movieModal');
@@ -907,7 +906,7 @@
 
         closeMovieModal.onclick = () => { movieModal.style.display = 'none'; };
         window.onclick = (event) => { if (event.target === movieModal) movieModal.style.display = 'none'; };
-        modalWatchBtn.onclick = () => { alert('Redirection to the viewing page'); };
+        modalWatchBtn.onclick = () => { alert('Перенаправление на страницу просмотра (демо-режим)'); };
 
         // Навешиваем клики на карточки фильмов
         document.querySelectorAll('.movie-card').forEach(card => {
@@ -952,7 +951,7 @@
                 if (dropdown) dropdown.remove();
                 dropdown = document.createElement('div');
                 dropdown.className = 'user-dropdown';
-                dropdown.innerHTML = '<a href="#" id="logoutBtn">Exit</a>';
+                dropdown.innerHTML = '<a href="profile.html">Профиль</a><a href="#" id="logoutBtn">Выйти</a>';
                 document.body.appendChild(dropdown);
                 const rect = accountBtn.getBoundingClientRect();
                 dropdown.style.top = rect.bottom + 5 + 'px';
@@ -1004,14 +1003,14 @@
                     localStorage.setItem('currentUser', email);
                     updateAccountIcon();
                     authModal.style.display = 'none';
-                    alert('Welcome, ' + user.name + '!');
+                    alert('Добро пожаловать, ' + user.name + '!');
                     document.getElementById('loginEmail').value = '';
                     document.getElementById('loginPassword').value = '';
                 } else {
-                    alert('Invalid password');
+                    alert('Неверный пароль');
                 }
             } else {
-                alert('The user was not found');
+                alert('Пользователь не найден');
             }
         });
 
@@ -1021,17 +1020,17 @@
             const password = document.getElementById('regPassword').value;
             if (name && email && password) {
                 if (localStorage.getItem(email)) {
-                    alert('The user with this email already exists');
+                    alert('Пользователь с таким email уже существует');
                 } else {
                     localStorage.setItem(email, JSON.stringify({ name, email, password }));
-                    alert('Registration is successful! Now log in.');
+                    alert('Регистрация прошла успешно! Теперь войдите.');
                     document.querySelector('.tab-btn[data-tab="login"]').click();
                     document.getElementById('regName').value = '';
                     document.getElementById('regEmail').value = '';
                     document.getElementById('regPassword').value = '';
                 }
             } else {
-                alert('Fill in all the fields');
+                alert('Заполните все поля');
             }
         });
 
