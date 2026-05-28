@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Жанры | Cinema Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #ff9999;
+            border-bottom: 2px solid #cd3c3c;
+            padding-bottom: 4px;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+            background: rgba(205, 60, 60, 0.3);
+        }
+
+        .user-name {
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        /* Основной контент */
+        .genres-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .genres-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .genres-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #cd3c3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .genres-header p {
+            color: #aaa;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Сетка жанров */
+        .genres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .genre-card {
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .genre-card:hover {
+            transform: translateY(-8px);
+            background: rgba(0, 0, 0, 0.95);
+            border-color: #cd3c3c;
+            box-shadow: 0 20px 30px rgba(205, 60, 60, 0.2);
+        }
+
+        .genre-icon {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            background: linear-gradient(135deg, #1a1a1a, #2a0a0a);
+        }
+
+        .genre-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .genre-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #cd3c3c;
+        }
+
+        .genre-info p {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .movie-count {
+            display: inline-block;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #ff9999;
+        }
+
+        /* Секция с популярными фильмами по жанру */
+        .genre-movies-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(17, 17, 17, 0.6);
+            border-radius: 24px;
+            border: 1px solid #262626;
+        }
+
+        .genre-movies-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #cd3c3c;
+        }
+
+        .genre-movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .genre-movie-item {
+            background: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .genre-movie-item:hover {
+            transform: translateY(-4px);
+            border-color: #cd3c3c;
+        }
+
+        .genre-movie-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .genre-movie-item h4 {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+            font-size: 0.8rem;
+            color: #6f6f6f;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .genres-container {
+                padding: 0 1rem;
+            }
+            .genres-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <a href="index.html" class="logo">Cinema Booking</a>
+        <div class="nav-links">
+        <a href="movie.html">фильмы</a>
+        <a href="genres.html" class="active">жанры</a>
+        <a href="about.html">о проекте</a>
+        <a href="contacts.html">контакты</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
+        </div>
+        <a href="profile.html" class="account-icon">
+            <div class="user-name" id="headerUserName">Аккаунт</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+<main class="genres-container">
+    <div class="genres-header">
+        <h1>Жанры</h1>
+        <p>Выберите жанр, чтобы найти фильмы по душе</p>
+    </div>
+
+    <div class="genres-grid" id="genresGrid">
+        <!-- Жанры будут добавлены через JS -->
+    </div>
+
+    <div class="genre-movies-section" id="genreMoviesSection" style="display: none;">
+        <h2 id="selectedGenreTitle">Фильмы в жанре: <span id="genreName"></span></h2>
+        <div class="genre-movies-grid" id="genreMoviesGrid"></div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 Cinema Booking — Все права защищены. Фильмы, афиши, расписание.</p>
+    <p style="margin-top: 10px;">Выберите свой любимый жанр</p>
+</footer>
+
+<script>
+    // Данные жанров
+    const genres = [
+        { id: "horror", name: "Ужасы",description: "Захватывающие фильмы, от которых кровь стынет в жилах", color: "#cd3c3c", movies: ["scream7", "readyornot"] },
+        { id: "thriller", name: "Триллер",description: "Напряжённые сюжеты и неожиданные развязки", color: "#ff6b35", movies: ["parasite", "fightclub"] },
+        { id: "action", name: "Боевик",description: "Динамичные сцены, погони и перестрелки", color: "#e74c3c", movies: ["theboys", "mrandmrssmith"] },
+        { id: "comedy", name: "Комедия",description: "Поднимите себе настроение", color: "#f1c40f", movies: ["homealone", "readyornot"] },
+        { id: "drama", name: "Драма",description: "Глубокие эмоциональные истории", color: "#9b59b6", movies: ["fightclub", "parasite"] },
+        { id: "crime", name: "Криминал",description: "Преступления, расследования и мафия", color: "#2c3e50", movies: ["theboys", "americanvandal"] },
+        { id: "family", name: "Семейный",description: "Кино для всей семьи", color: "#2ecc71", movies: ["homealone"] },
+        { id: "cult", name: "Культовое кино", description: "Фильмы, ставшие легендами", color: "#e67e22", movies: ["fightclub"] }
+    ];
+
+    // Данные фильмов для отображения
+    const moviesForGenres = {
+        scream7: { title: "Крик 7", poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg", year: 2025 },
+        readyornot: { title: "Готов или нет", poster: "https://i.pinimg.com/736x/78/6c/b8/786cb8b688270e0f2fff80da566c064b.jpg", year: 2019 },
+        theboys: { title: "Пацаны", poster: "https://i.pinimg.com/736x/30/72/6d/30726dd11c0f4411f0e03219b1c0e5d6.jpg", year: 2019 },
+        homealone: { title: "Один дома", poster: "https://i.pinimg.com/1200x/4e/27/8d/4e278d8db6710b3735140c5dcf4f3f71.jpg", year: 1990 },
+        parasite: { title: "Паразиты", poster: "https://i.pinimg.com/1200x/af/b7/bc/afb7bc6fa414a06b09a26cb0d191f3c9.jpg", year: 2019 },
+        mrandmrssmith: { title: "Мистер и миссис Смит", poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg", year: 2005 },
+        fightclub: { title: "Бойцовский клуб", poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg", year: 1999 },
+        americanvandal: { title: "Американский вандал", poster: "https://i.pinimg.com/736x/c7/67/c2/c767c2022f180e45b6f027f7eefd5b1f.jpg", year: 2017 }
+    };
+
+    // Функция для отображения жанров
+    function renderGenres() {
+        const container = document.getElementById('genresGrid');
+        container.innerHTML = '';
+        
+        genres.forEach(genre => {
+            const genreCard = document.createElement('a');
+            genreCard.className = 'genre-card';
+            genreCard.setAttribute('data-genre-id', genre.id);
+            genreCard.setAttribute('data-genre-name', genre.name);
+            genreCard.href = '#';
+            
+            genreCard.innerHTML = `
+                <div class="genre-info">
+                    <h3 style="color: ${genre.color};">${genre.name}</h3>
+                    <p>${genre.description}</p>
+                    <span class="movie-count">${genre.movies.length} фильмов</span>
+                </div>
+            `;
+            
+            genreCard.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMoviesByGenre(genre);
+            });
+            
+            container.appendChild(genreCard);
+        });
+    }
+
+    // Функция для отображения фильмов выбранного жанра
+    function showMoviesByGenre(genre) {
+        const section = document.getElementById('genreMoviesSection');
+        const genreNameSpan = document.getElementById('genreName');
+        const moviesGrid = document.getElementById('genreMoviesGrid');
+        
+        genreNameSpan.innerText = genre.name;
+        
+        // Получаем фильмы для этого жанра
+        const movies = genre.movies.map(movieId => moviesForGenres[movieId]).filter(m => m);
+        
+        if (movies.length === 0) {
+            moviesGrid.innerHTML = '<p style="color: #aaa;">Фильмов в этом жанре пока нет</p>';
+        } else {
+            moviesGrid.innerHTML = '';
+            movies.forEach(movie => {
+                const movieItem = document.createElement('div');
+                movieItem.className = 'genre-movie-item';
+                movieItem.innerHTML = `
+                    <img src="${movie.poster}" alt="${movie.title}">
+                    <h4>${movie.title}</h4>
+                `;
+                movieItem.addEventListener('click', () => {
+                    window.location.href = 'movies.html';
+                });
+                moviesGrid.appendChild(movieItem);
+            });
+        }
+        
+        section.style.display = 'block';
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Обновление имени пользователя в шапке
+    function updateHeaderUserName() {
+        const currentUserEmail = localStorage.getItem('currentUser');
+        const headerUserName = document.getElementById('headerUserName');
+        if (currentUserEmail && headerUserName) {
+            const userData = JSON.parse(localStorage.getItem(currentUserEmail));
+            if (userData && userData.name) {
+                headerUserName.innerText = userData.name;
+            } else {
+                headerUserName.innerText = 'Аккаунт';
+            }
+        } else {
+            headerUserName.innerText = 'Аккаунт';
+        }
+    }
+
+    // Поиск жанров
+    const globalSearch = document.getElementById('globalSearch');
+    if (globalSearch) {
+        globalSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const genreCards = document.querySelectorAll('.genre-card');
+            genreCards.forEach(card => {
+                const genreName = card.querySelector('h3')?.innerText.toLowerCase() || '';
+                if (genreName.includes(query) || query === '') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Скрываем секцию с фильмами при поиске
+            if (query !== '') {
+                document.getElementById('genreMoviesSection').style.display = 'none';
+            }
+        });
+    }
+
+    // Инициализация
+    renderGenres();
+    updateHeaderUserName();
+</script>
+
+</body>
+</html>
