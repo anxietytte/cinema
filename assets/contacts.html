@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Контакты | Cinema Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #ff9999;
+            border-bottom: 2px solid #cd3c3c;
+            padding-bottom: 4px;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+            background: rgba(205, 60, 60, 0.3);
+        }
+
+        .user-name {
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        /* Основной контент */
+        .contacts-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .contacts-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contacts-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #cd3c3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .contacts-header p {
+            color: #aaa;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Секции */
+        .contacts-section {
+            background: rgba(17, 17, 17, 0.7);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #262626;
+        }
+
+        .contacts-section h2 {
+            font-size: 1.8rem;
+            color: #cd3c3c;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Сетка контактов */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: #cd3c3c;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(205, 60, 60, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #ff9999;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Карта */
+        .map-container {
+            margin-top: 1.5rem;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .map-placeholder {
+            background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: #aaa;
+        }
+
+        .map-placeholder span {
+            font-size: 4rem;
+        }
+
+        /* Форма обратной связи */
+        .feedback-form {
+            margin-top: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ec5050;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #ff6464;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #cd3c3c;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: #cd3c3c;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .submit-btn:hover {
+            background: #a52a2a;
+            transform: scale(1.02);
+        }
+
+        /* Социальные сети */
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-item:hover {
+            transform: translateY(-5px);
+            background: rgba(205, 60, 60, 0.2);
+        }
+
+        .social-icon {
+            font-size: 2rem;
+        }
+
+        .social-item span:last-child {
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+            font-size: 0.8rem;
+            color: #6f6f6f;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .contacts-container {
+                padding: 0 1rem;
+            }
+            .contacts-header h1 {
+                font-size: 2rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .contact-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <a href="index.html" class="logo">Cinema Booking</a>
+        <div class="nav-links">
+            <a href="movie.html">фильмы</a>
+            <a href="genres.html">жанры</a>
+            <a href="about.html">о проекте</a>
+            <a href="contacts.html" class="active">контакты</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
+        </div>
+        <a href="profile.html" class="account-icon">
+            <div class="user-name" id="headerUserName">Аккаунт</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+<main class="contacts-container">
+    <div class="contacts-header">
+        <h1>Контакты</h1>
+        <p>Свяжитесь с нами любым удобным способом</p>
+    </div>
+
+    <!-- Контактная информация -->
+    <div class="contacts-section">
+        <h2>Контактная информация</h2>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>Адрес</h3>
+                    <p>г. Москва, ул. Кино, д. 13<br>БЦ "КиноПарк", 3 этаж</p>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>Телефон</h3>
+                    <p>+7 (999) 123-45-67<br>+7 (999) 765-43-21</p>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>Email</h3>
+                    <p>support@cinemabooking.com<br>info@cinemabooking.com</p>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>Режим работы</h3>
+                    <p>Пн-Пт: 09:00 - 21:00<br>Сб-Вс: 10:00 - 20:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Карта -->
+    <div class="contacts-section">
+        <h2>Мы на карте</h2>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <p>г. Москва, ул. Кино, д. 13</p>
+                <small>Интерактивная карта будет добавлена позже</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма обратной связи -->
+    <div class="contacts-section">
+        <h2>Напишите нам</h2>
+        <form class="feedback-form" id="feedbackForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" id="feedbackName" placeholder="Иван Иванов" required>
+                </div>
+                <div class="form-group">
+                    <label>Ваш email</label>
+                    <input type="email" id="feedbackEmail" placeholder="ivan@example.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Тема обращения</label>
+                <select id="feedbackSubject">
+                    <option value="question">Вопрос о работе сервиса</option>
+                    <option value="booking">Проблема с бронированием</option>
+                    <option value="cooperation">Сотрудничество</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Сообщение</label>
+                <textarea id="feedbackMessage" placeholder="Опишите ваш вопрос или предложение..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Отправить сообщение</button>
+        </form>
+    </div>
+
+    <!-- Социальные сети -->
+    <div class="contacts-section">
+        <h2>Мы в соцсетях</h2>
+        <div class="social-grid">
+            <a href="#" class="social-item" onclick="alert('Переход в Telegram (демо)')">
+                <span>Telegram</span>
+            </a>
+            <a href="#" class="social-item" onclick="alert('Переход в VK (демо)')">
+                <span>ВКонтакте</span>
+            </a>
+            <a href="#" class="social-item" onclick="alert('Переход в Instagram (демо)')">
+                <span>Instagram</span>
+            </a>
+            <a href="#" class="social-item" onclick="alert('Переход в YouTube (демо)')">
+                <span>YouTube</span>
+            </a>
+            <a href="#" class="social-item" onclick="alert('Переход в Twitter (демо)')">
+                <span>Twitter</span>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 Cinema Booking — Все права защищены. Фильмы, афиши, расписание.</p>
+    <p style="margin-top: 10px;">Свяжитесь с нами: support@cinemabooking.com | +7 (999) 123-45-67</p>
+</footer>
+
+<script>
+    // Обновление имени пользователя в шапке
+    function updateHeaderUserName() {
+        const currentUserEmail = localStorage.getItem('currentUser');
+        const headerUserName = document.getElementById('headerUserName');
+        if (currentUserEmail && headerUserName) {
+            const userData = JSON.parse(localStorage.getItem(currentUserEmail));
+            if (userData && userData.name) {
+                headerUserName.innerText = userData.name;
+            } else {
+                headerUserName.innerText = 'Аккаунт';
+            }
+        } else {
+            headerUserName.innerText = 'Аккаунт';
+        }
+    }
+
+    // Обработка формы обратной связи
+    const feedbackForm = document.getElementById('feedbackForm');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('feedbackName').value;
+            const email = document.getElementById('feedbackEmail').value;
+            const subject = document.getElementById('feedbackSubject').options[document.getElementById('feedbackSubject').selectedIndex].text;
+            const message = document.getElementById('feedbackMessage').value;
+            
+            if (name && email && message) {
+                // Сохраняем обращение в localStorage
+                const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+                feedbacks.push({
+                    id: Date.now(),
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    date: new Date().toLocaleString('ru-RU')
+                });
+                localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+                
+                alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
+                feedbackForm.reset();
+            } else {
+                alert('Пожалуйста, заполните все обязательные поля');
+            }
+        });
+    }
+
+    // Поиск
+    const globalSearch = document.getElementById('globalSearch');
+    if (globalSearch) {
+        globalSearch.addEventListener('input', (e) => {
+            console.log('Поиск:', e.target.value);
+        });
+    }
+
+    updateHeaderUserName();
+</script>
+
+</body>
+</html>
