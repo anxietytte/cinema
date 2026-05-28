@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Movies | Cinema Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #8B0000;
+            background: linear-gradient(135deg, #6a0000 0%, #9b1a1a 100%);
+            color: #ffffff;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #3a1a1a;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            background: none;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #ff9999;
+            border-bottom: 2px solid #cd3c3c;
+            padding-bottom: 4px;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+            backdrop-filter: blur(2px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+            background: rgba(205, 60, 60, 0.3);
+        }
+
+        .user-name {
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        .movies-header {
+            text-align: center;
+            padding: 2.5rem 1rem 1rem;
+        }
+
+        .movies-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .movies-header p {
+            opacity: 0.9;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        .movies-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        .movies-grid-page {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .movie-card-page {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 80, 80, 0.3);
+            cursor: pointer;
+        }
+
+        .movie-card-page:hover {
+            transform: translateY(-6px);
+            background: rgba(0, 0, 0, 0.85);
+            border-color: #ff6666;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie-img {
+            height: 340px;
+            overflow: hidden;
+            background: #2a1a1a;
+        }
+
+        .movie-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .movie-card-page:hover .movie-img img {
+            transform: scale(1.05);
+        }
+
+        .movie-info-page {
+            padding: 1.2rem 1.2rem 1.5rem;
+        }
+
+        .movie-info-page h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .movie-age {
+            color: #ffb347;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .movie-synopsis {
+            font-size: 0.85rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .btn-book {
+            background: #cd3c3c;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-book:hover {
+            background: #a52a2a;
+            transform: scale(0.96);
+        }
+
+        /* МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ */
+        .movie-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .movie-modal-content {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            border-radius: 32px;
+            max-width: 1000px;
+            width: 90%;
+            padding: 2rem;
+            position: relative;
+            border: 1px solid rgba(205, 60, 60, 0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .close-movie-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-movie-modal:hover {
+            color: #cd3c3c;
+        }
+
+        .movie-modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .movie-modal-poster {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .movie-modal-poster img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .movie-modal-info {
+            flex: 2;
+        }
+
+        .movie-modal-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .movie-modal-sub {
+            color: #cd3c3c;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #cd3c3c;
+            padding-left: 0.8rem;
+        }
+
+        .actors-row {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .actor {
+            text-align: center;
+        }
+
+        .actor-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .actor-role {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
+        .movie-modal-desc {
+            color: #ccc;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .movie-details-row {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .detail-item {
+            font-size: 0.85rem;
+        }
+
+        .detail-label {
+            color: #888;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-weight: 600;
+        }
+
+        .watch-now-btn {
+            background: #cd3c3c;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .watch-now-btn:hover {
+            background: #a52a2a;
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.4);
+            font-size: 0.75rem;
+            color: #ffcfcf;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .search-wrapper {
+                min-width: 100%;
+            }
+            .movies-container {
+                padding: 1.5rem;
+            }
+            .movies-header h1 {
+                font-size: 2rem;
+            }
+            .movie-modal-title {
+                font-size: 1.8rem;
+            }
+            .movie-modal-body {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <a href="index.html" class="logo">Cinema Booking</a>
+        <div class="nav-links">
+            <a href="movies.html" class="active">фильмы</a>
+            <a href="#">жанры</a>
+            <a href="#">о проекте</a>
+            <a href="#">контакты</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
+        </div>
+        <a href="profile.html" class="account-icon" id="accountBtn">
+            <div class="user-name" id="headerUserName">Аккаунт</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+<div class="movies-header">
+    <h1>ВСЕ ФИЛЬМЫ</h1>
+    <p>Ужасы, триллеры, культовая классика — смотрите на большом экране</p>
+</div>
+
+<div class="movies-container">
+    <div class="movies-grid-page" id="moviesGrid">
+        <div class="movie-card-page" data-movie="scream7">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Scream 7">
+            </div>
+            <div class="movie-info-page">
+                <h3>КРИК 7</h3>
+                <div class="movie-age">18+ · Ужасы</div>
+                <div class="movie-synopsis">Призрак возвращается. Сидни Прескотт должна встретиться лицом к лицу со своими самыми мрачными страхами, чтобы защитить свою семью. Последняя кровавая глава.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="readyornot">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/78/6c/b8/786cb8b688270e0f2fff80da566c064b.jpg" alt="Ready or Not">
+            </div>
+            <div class="movie-info-page">
+                <h3>Готов или нет <span style="color:#cd3c3c;">18+</span></h3>
+                <div class="movie-age">Ужасы · Комедия</div>
+                <div class="movie-synopsis">Когда брачная ночь превращается в кровавую игру на выживание. Комедия ужасов с запутанным финалом.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="theboys">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/30/72/6d/30726dd11c0f4411f0e03219b1c0e5d6.jpg" alt="The Boys">
+            </div>
+            <div class="movie-info-page">
+                <h3>Пацаны <span style="color:#cd3c3c;">18+</span></h3>
+                <div class="movie-age">Боевик · Сатира</div>
+                <div class="movie-synopsis">Группа простых смертных сражается с коррумпированными супергероями в извращенном мире.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="homealone">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/1200x/4e/27/8d/4e278d8db6710b3735140c5dcf4f3f71.jpg" alt="Home Alone">
+            </div>
+            <div class="movie-info-page">
+                <h3>Один дома</h3>
+                <div class="movie-age">Семейная комедия</div>
+                <div class="movie-synopsis">Мальчик, случайно оставленный дома, должен защитить свой дом от двух неуклюжих грабителей. Классика праздника.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="parasite">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/1200x/af/b7/bc/afb7bc6fa414a06b09a26cb0d191f3c9.jpg" alt="Parasite">
+            </div>
+            <div class="movie-info-page">
+                <h3>Паразит</h3>
+                <div class="movie-age">Триллер · Драма</div>
+                <div class="movie-synopsis">Бедная семья пытается проникнуть в жизнь богатой семьи, что приводит к неожиданным последствиям.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="mrandmrssmith">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg" alt="Mr and Mrs Smith">
+            </div>
+            <div class="movie-info-page">
+                <h3>Мистер и Миссис Смит <span style="color:#cd3c3c;">18+</span></h3>
+                <div class="movie-age">Боевик · Мелодрама</div>
+                <div class="movie-synopsis">Счастливая парочка секретных агентов получает задание убить друг друга. Боевик, полный пуль и страсти.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="fightclub">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg" alt="Fight Club">
+            </div>
+            <div class="movie-info-page">
+                <h3>Бойцовский клуб</h3>
+                <div class="movie-age">Культовая драма</div>
+                <div class="movie-synopsis">Ты не должен говорить об этом. Первое правило Бойцовского клуба: ты не должен говорить о Бойцовском клубе.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+
+        <div class="movie-card-page" data-movie="americanvandal">
+            <div class="movie-img">
+                <img src="https://i.pinimg.com/736x/c7/67/c2/c767c2022f180e45b6f027f7eefd5b1f.jpg" alt="American Vandal">
+            </div>
+            <div class="movie-info-page">
+                <h3>Американский вандал</h3>
+                <div class="movie-age">Криминал · Псевдодокументальный</div>
+                <div class="movie-synopsis">Настоящая криминальная сатира о школьной шалости, которая перерастает в расследование.</div>
+                <button class="btn-book">Забронировать билет</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Cinema Booking — Все фильмы всех жанров. Специальный выпуск Red screen.</p>
+    <p style="margin-top: 6px;">«Крик 7» уже в кинотеатрах — бронируйте билеты онлайн</p>
+</footer>
+
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ -->
+<div id="movieModal" class="movie-modal">
+    <div class="movie-modal-content">
+        <span class="close-movie-modal">&times;</span>
+        <div class="movie-modal-body">
+            <div class="movie-modal-poster">
+                <img id="modalPoster" src="" alt="Постер фильма">
+            </div>
+            <div class="movie-modal-info">
+                <h1 id="modalTitle" class="movie-modal-title">Мистер и Миссис Смит</h1>
+                <div id="modalSub" class="movie-modal-sub">Брэд Питт · Анджелина Джоли</div>
+                
+                <div class="actors-row" id="actorsRow">
+                    <div class="actor">
+                        <div class="actor-name" id="actor1Name">Брэд Питт</div>
+                        <div class="actor-role" id="actor1Role">Джон Смит</div>
+                    </div>
+                    <div class="actor">
+                        <div class="actor-name" id="actor2Name">Анджелина Джоли</div>
+                        <div class="actor-role" id="actor2Role">Джейн Смит</div>
+                    </div>
+                </div>
+                
+                <p id="modalDesc" class="movie-modal-desc">Джон и Джейн поженились не так давно, но они уже устали от брака...</p>
+                
+                <div class="movie-details-row">
+                    <div class="detail-item">
+                        <div class="detail-label">Год выпуска</div>
+                        <div class="detail-value" id="modalYear">2005</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Страна</div>
+                        <div class="detail-value" id="modalCountry">США</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Жанр</div>
+                        <div class="detail-value" id="modalGenre">Боевик, комедия, триллер, криминал</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">В кино</div>
+                        <div class="detail-value" id="modalDate">с 20 мая</div>
+                    </div>
+                </div>
+                
+                <button class="watch-now-btn" id="modalWatchBtn">СМОТРЕТЬ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // === ДАННЫЕ ФИЛЬМОВ ===
+    const moviesData = {
+        scream7: {
+            title: "КРИК 7",
+            sub: "Возвращение Призрачного лица · Нив Кэмпбелл",
+            poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg",
+            desc: "Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого и навсегда положить конец кровавой бойне.",
+            year: "2025",
+            country: "США",
+            genre: "Ужасы, Триллер, Слэшер",
+            date: "с 23 мая",
+            actor1: "Нив Кэмпбелл",
+            actor2: "Кортни Кокс",
+            role1: "Сидни Прескотт",
+            role2: "Гейл Уэзерс"
+        },
+        readyornot: {
+            title: "Готов или нет",
+            sub: "Самара Уивинг · Адам Броди",
+            poster: "https://i.pinimg.com/736x/78/6c/b8/786cb8b688270e0f2fff80da566c064b.jpg",
+            desc: "Свадебная ночь невесты превращается в смертельную игру в прятки с её богатыми родственниками. Комедия ужасов, полная чёрного юмора и неожиданных поворотов.",
+            year: "2019",
+            country: "США",
+            genre: "Ужасы, Комедия, Триллер",
+            date: "с 15 октября",
+            actor1: "Самара Уивинг",
+            actor2: "Адам Броди",
+            role1: "Грейс",
+            role2: "Дэниел"
+        },
+        theboys: {
+            title: "Пацаны",
+            sub: "Карл Урбан · Джек Куэйд",
+            poster: "https://i.pinimg.com/736x/30/72/6d/30726dd11c0f4411f0e03219b1c0e5d6.jpg",
+            desc: "Группа самодеятельных мстителей, известных как «Пацаны», решает покончить с коррумпированными супергероями, которые злоупотребляют своими способностями. Темный, жестокий и сатирический сериал.",
+            year: "2019",
+            country: "США",
+            genre: "Боевик, Сатира, Криминал",
+            date: "Сериал — стриминг",
+            actor1: "Карл Урбан",
+            actor2: "Джек Куэйд",
+            role1: "Билли Бутчер",
+            role2: "Хьюи Кэмпбелл"
+        },
+        homealone: {
+            title: "Один дома",
+            sub: "Маколей Калкин · Джо Пеши",
+            poster: "https://i.pinimg.com/1200x/4e/27/8d/4e278d8db6710b3735140c5dcf4f3f71.jpg",
+            desc: "Восьмилетний проказник должен защитить свой дом от двух грабителей, когда его случайно оставляют одного на время рождественских каникул.",
+            year: "1990",
+            country: "США",
+            genre: "Комедия, Семейный",
+            date: "Классика — повторный показ",
+            actor1: "Маколей Калкин",
+            actor2: "Джо Пеши",
+            role1: "Кевин МакКаллистер",
+            role2: "Гарри"
+        },
+        parasite: {
+            title: "Паразиты",
+            sub: "Сон Кан Хо · Ли Сон Гюн",
+            poster: "https://i.pinimg.com/1200x/af/b7/bc/afb7bc6fa414a06b09a26cb0d191f3c9.jpg",
+            desc: "Бедная семья внедряется в жизнь богатой семьи, что приводит к неожиданным и мрачным последствиям. Обладатель 4 премий Оскар.",
+            year: "2019",
+            country: "Южная Корея",
+            genre: "Триллер, Драма, Черная комедия",
+            date: "с 5 июня",
+            actor1: "Сон Кан Хо",
+            actor2: "Ли Сон Гюн",
+            role1: "Ким Ки Тэк",
+            role2: "Мистер Пак"
+        },
+        mrandmrssmith: {
+            title: "Мистер и миссис Смит",
+            sub: "Брэд Питт · Анджелина Джоли",
+            poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg",
+            desc: "Джон и Джейн поженились не так давно, но уже устали от брака. Они чувствуют, что есть что-то, что каждый предпочитает держать при себе. Оба они наёмные убийцы, которые тайно путешествуют по миру, выполняя опасные миссии.",
+            year: "2005",
+            country: "США",
+            genre: "Боевик, Комедия, Триллер, Криминал",
+            date: "с 20 мая",
+            actor1: "Брэд Питт",
+            actor2: "Анджелина Джоли",
+            role1: "Джон Смит",
+            role2: "Джейн Смит"
+        },
+        fightclub: {
+            title: "Бойцовский клуб",
+            sub: "Брэд Питт · Эдвард Нортон",
+            poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg",
+            desc: "Страдающий бессонницей депрессивный мужчина встречает странного продавца мыла и вскоре оказывается живущим в его убогом доме. Двое скучающих мужчин организуют подпольный бойцовский клуб как радикальную форму психотерапии, но клуб быстро превращается во нечто гораздо более тёмное.",
+            year: "1999",
+            country: "США",
+            genre: "Драма, Триллер, Культовое кино",
+            date: "Повторный показ классики",
+            actor1: "Брэд Питт",
+            actor2: "Эдвард Нортон",
+            role1: "Тайлер Дёрден",
+            role2: "Рассказчик"
+        },
+        americanvandal: {
+            title: "Американский вандал",
+            sub: "Тайлер Альварес · Гриффин Глюк",
+            poster: "https://i.pinimg.com/736x/c7/67/c2/c767c2022f180e45b6f027f7eefd5b1f.jpg",
+            desc: "Сатирическая криминальная драма, рассказывающая о последствиях школьной шалости, связанной с рисунками на машинах учителей. Умный и смешной псевдодокументальный сериал.",
+            year: "2017",
+            country: "США",
+            genre: "Криминал, Псевдодокументальный, Комедия",
+            date: "Сериал — стриминг",
+            actor1: "Тайлер Альварес",
+            actor2: "Гриффин Глюк",
+            role1: "Питер Мальдонадо",
+            role2: "Сэм Эклунд"
+        }
+    };
+
+    // Элементы модального окна
+    const movieModal = document.getElementById('movieModal');
+    const closeMovieModal = document.querySelector('.close-movie-modal');
+    const modalPoster = document.getElementById('modalPoster');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSub = document.getElementById('modalSub');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalYear = document.getElementById('modalYear');
+    const modalCountry = document.getElementById('modalCountry');
+    const modalGenre = document.getElementById('modalGenre');
+    const modalDate = document.getElementById('modalDate');
+    const actor1Name = document.getElementById('actor1Name');
+    const actor1Role = document.getElementById('actor1Role');
+    const actor2Name = document.getElementById('actor2Name');
+    const actor2Role = document.getElementById('actor2Role');
+    const modalWatchBtn = document.getElementById('modalWatchBtn');
+
+    function openMovieModal(movieId) {
+        const movie = moviesData[movieId];
+        if (!movie) return;
+        modalPoster.src = movie.poster;
+        modalTitle.innerText = movie.title;
+        modalSub.innerText = movie.sub;
+        modalDesc.innerText = movie.desc;
+        modalYear.innerText = movie.year;
+        modalCountry.innerText = movie.country;
+        modalGenre.innerText = movie.genre;
+        modalDate.innerText = movie.date;
+        actor1Name.innerText = movie.actor1;
+        actor1Role.innerText = movie.role1;
+        actor2Name.innerText = movie.actor2;
+        actor2Role.innerText = movie.role2;
+        movieModal.style.display = 'flex';
+    }
+
+    closeMovieModal.onclick = () => { movieModal.style.display = 'none'; };
+    window.onclick = (event) => { if (event.target === movieModal) movieModal.style.display = 'none'; };
+    modalWatchBtn.onclick = () => { alert('Перенаправление на страницу просмотра (демо-режим)'); };
+
+    // Навешиваем клики на карточки фильмов
+    document.querySelectorAll('.movie-card-page').forEach(card => {
+        const movieId = card.getAttribute('data-movie');
+        if (movieId) {
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-book')) {
+                    e.stopPropagation();
+                    alert('Билет успешно забронирован. Спасибо за выбор Cinema Booking!');
+                    return;
+                }
+                openMovieModal(movieId);
+            });
+        }
+    });
+
+    // Обработчики кнопок "Book tickets" отдельно
+    const bookBtns = document.querySelectorAll('.btn-book');
+    bookBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            alert('Билет успешно забронирован. Спасибо за выбор Cinema Booking!');
+        });
+    });
+
+    // Поиск фильмов
+    const searchField = document.getElementById('globalSearch');
+    if(searchField) {
+        searchField.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.movie-card-page');
+            cards.forEach(card => {
+                const title = card.querySelector('h3')?.innerText.toLowerCase() || '';
+                if(title.includes(query) || query === '') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Обновление имени пользователя в шапке (если авторизован)
+    function updateHeaderUserName() {
+        const currentUserEmail = localStorage.getItem('currentUser');
+        const headerUserName = document.getElementById('headerUserName');
+        if (currentUserEmail && headerUserName) {
+            const userData = JSON.parse(localStorage.getItem(currentUserEmail));
+            if (userData && userData.name) {
+                headerUserName.innerText = userData.name;
+            }
+        }
+    }
+    updateHeaderUserName();
+</script>
+
+</body>
+</html>
