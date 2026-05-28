@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>О проекте | Cinema Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: #ff9999;
+            border-bottom: 2px solid #cd3c3c;
+            padding-bottom: 4px;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+            background: rgba(205, 60, 60, 0.3);
+        }
+
+        .user-name {
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        /* Основной контент */
+        .about-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #cd3c3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .about-header p {
+            color: #aaa;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Секции */
+        .about-section {
+            background: rgba(17, 17, 17, 0.7);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #262626;
+        }
+
+        .about-section h2 {
+            font-size: 1.8rem;
+            color: #cd3c3c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .about-section p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Сетка преимуществ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #cd3c3c;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ff9999;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* Команда */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .team-card:hover {
+            background: rgba(205, 60, 60, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #cd3c3c, #8b0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .team-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-card p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* Контакты */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+        }
+
+        .contact-info h4 {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+            font-size: 0.8rem;
+            color: #6f6f6f;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .about-container {
+                padding: 0 1rem;
+            }
+            .about-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <a href="index.html" class="logo">Cinema Booking</a>
+        <div class="nav-links">
+        <a href="movie.html">фильмы</a>
+        <a href="genres.html">жанры</a>
+        <a href="about.html" class="active">о проекте</a>
+        <a href="contacts.html">контакты</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
+        </div>
+        <a href="profile.html" class="account-icon">
+            <div class="user-name" id="headerUserName">Аккаунт</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+<main class="about-container">
+    <div class="about-header">
+        <h1>О проекте</h1>
+        <p>Узнайте больше о Cinema Booking — вашем надёжном сервисе для бронирования билетов в кино</p>
+    </div>
+
+    <!-- О проекте -->
+    <div class="about-section">
+        <h2>Cinema Booking</h2>
+        <p>Cinema Booking — это современная онлайн-платформа для бронирования билетов в кинотеатры. Мы создали сервис, который делает процесс покупки билетов максимально простым и удобным. Наша миссия — подарить вам незабываемые впечатления от просмотра любимых фильмов на большом экране.</p>
+    </div>
+
+    <!-- Наши преимущества -->
+    <div class="about-section">
+        <h2>Наши преимущества</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Быстрое бронирование</h3>
+                <p>Выбирайте фильм, ряд и место всего за несколько кликов. Мгновенное подтверждение брони.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Удобный интерфейс</h3>
+                <p>Интуитивно понятный дизайн, который работает на всех устройствах — компьютерах, планшетах и смартфонах.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Безопасность</h3>
+                <p>Ваши данные защищены, все транзакции проходят через безопасные каналы.</p>
+            </div>
+            <div class="feature-card">
+                <h3>История броней</h3>
+                <p>Все ваши бронирования хранятся в личном кабинете — удобно отслеживать и управлять.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Акции и скидки</h3>
+                <p>Специальные предложения для постоянных клиентов и групповые скидки.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Технологии -->
+    <div class="about-section">
+        <h2>Технологии</h2>
+        <p>Наш проект разработан с использованием современных веб-технологий: HTML5, CSS. Мы используем локальное хранилище браузера для сохранения данных пользователя, что обеспечивает быструю работу и полную конфиденциальность. В будущем мы планируем добавить серверную часть для синхронизации данных между устройствами.</p>
+    </div>
+    <!-- Контакты -->
+    <div class="about-section">
+        <h2>Контакты</h2>
+        <div class="contacts-grid">
+            <div class="contact-item">
+                <div class="contact-info">
+                    <h4>Адрес</h4>
+                    <p>г. Москва, ул. Кино, д. 13</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-info">
+                    <h4>Email</h4>
+                    <p>support@cinemabooking.com</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-info">
+                    <h4>Телефон</h4>
+                    <p>+7 (999) 123-45-67</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-info">
+                    <h4>Режим работы</h4>
+                    <p>Ежедневно 10:00 - 22:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 Cinema Booking — Все права защищены. Фильмы, афиши, расписание.</p>
+    <p style="margin-top: 10px;">Ваш надёжный сервис для бронирования билетов в кино</p>
+</footer>
+
+<script>
+    // Обновление имени пользователя в шапке
+    function updateHeaderUserName() {
+        const currentUserEmail = localStorage.getItem('currentUser');
+        const headerUserName = document.getElementById('headerUserName');
+        if (currentUserEmail && headerUserName) {
+            const userData = JSON.parse(localStorage.getItem(currentUserEmail));
+            if (userData && userData.name) {
+                headerUserName.innerText = userData.name;
+            } else {
+                headerUserName.innerText = 'Аккаунт';
+            }
+        } else {
+            headerUserName.innerText = 'Аккаунт';
+        }
+    }
+
+    // Поиск (для совместимости)
+    const globalSearch = document.getElementById('globalSearch');
+    if (globalSearch) {
+        globalSearch.addEventListener('input', (e) => {
+            console.log('Поиск:', e.target.value);
+        });
+    }
+
+    updateHeaderUserName();
+</script>
+
+</body>
+</html>
