@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Личный кабинет | Cinema Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0c0c0c;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(205, 60, 60, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+            background: rgba(205, 60, 60, 0.3);
+        }
+
+        .user-name-header {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-section {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #cd3c3c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .welcome-section p {
+            color: #aaa;
+            margin-top: 0.3rem;
+        }
+
+        .profile-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .profile-left {
+            flex: 1.2;
+            min-width: 280px;
+        }
+
+        .profile-right {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .card {
+            background: #111111;
+            border-radius: 24px;
+            border: 1px solid #262626;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #262626;
+            background: #0f0f0f;
+        }
+
+        .card-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #cd3c3c;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .user-info-row {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .user-avatar-large {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #cd3c3c, #8b0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .user-details h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .user-details p {
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+        }
+
+        .info-line {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .info-line span:first-child {
+            width: 100px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .info-line span:last-child {
+            color: white;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            background: none;
+            border: 1px solid #cd3c3c;
+            color: #cd3c3c;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .edit-btn:hover {
+            background: #cd3c3c;
+            color: white;
+        }
+
+        .favourites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .fav-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #1a1a1a;
+            border-radius: 16px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .fav-item:hover {
+            background: #252525;
+            transform: translateX(5px);
+        }
+
+        .fav-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .fav-age {
+            font-size: 0.7rem;
+            color: #cd3c3c;
+            font-weight: 600;
+        }
+
+        .fav-rating {
+            color: #ffb347;
+            font-size: 0.8rem;
+        }
+
+        .remove-fav {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 0.3rem;
+        }
+
+        .remove-fav:hover {
+            color: #cd3c3c;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .history-item {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: 0.2s;
+            border-left: 3px solid #cd3c3c;
+        }
+
+        .history-movie h4 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .history-movie p {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+
+        .history-details {
+            text-align: right;
+        }
+
+        .history-date {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        .history-seats {
+            font-size: 0.8rem;
+            color: #cd3c3c;
+            font-weight: 600;
+        }
+
+        .btn-cancel {
+            background: none;
+            border: 1px solid #cd3c3c;
+            color: #cd3c3c;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.3rem;
+        }
+
+        .btn-cancel:hover {
+            background: #cd3c3c;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #aaa;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        .logout-btn:hover {
+            background: #cd3c3c;
+            border-color: #cd3c3c;
+            color: white;
+        }
+
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-modal-content {
+            background: #111;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #cd3c3c;
+        }
+
+        .edit-modal-content h3 {
+            margin-bottom: 1rem;
+            color: #cd3c3c;
+        }
+
+        .edit-modal-content input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .edit-modal-content button {
+            width: 100%;
+            padding: 0.7rem;
+            background: #cd3c3c;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .close-edit-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+            font-size: 0.8rem;
+            color: #6f6f6f;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .profile-container {
+                padding: 0 1rem;
+            }
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .history-details {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <a href="index.html" class="logo">Cinema Booking</a>
+        <div class="nav-links">
+        <a href="movie.html">фильмы</a>
+        <a href="genres.html">жанры</a>
+        <a href="about.html">о проекте</a>
+        <a href="contacts.html">контакты</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
+        </div>
+        <a href="profile.html" class="account-icon">
+            <div class="user-name-header" id="headerUserName">Аккаунт</div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </a>
+    </div>
+</header>
+
+<main class="profile-container">
+    <div class="welcome-section">
+        <h1>Личный кабинет</h1>
+        <p>Управляйте своими бронями, избранным и данными профиля</p>
+    </div>
+
+    <div class="profile-grid" id="profileContent">
+        <div class="empty-state">Загрузка профиля...</div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 Cinema Booking — Все права защищены. Личный кабинет.</p>
+</footer>
+
+<div id="editModal" class="edit-modal">
+    <div class="edit-modal-content">
+        <span class="close-edit-modal">&times;</span>
+        <h3>Редактировать профиль</h3>
+        <input type="text" id="editName" placeholder="Имя">
+        <input type="tel" id="editPhone" placeholder="Телефон">
+        <button id="saveEditBtn">Сохранить</button>
+    </div>
+</div>
+
+<script>
+    function getCurrentUser() {
+        const userEmail = localStorage.getItem('currentUser');
+        if (!userEmail) return null;
+        const userData = localStorage.getItem(userEmail);
+        if (!userData) return null;
+        return JSON.parse(userData);
+    }
+
+    function getUserBookings(email) {
+        const bookingsKey = `bookings_${email}`;
+        const saved = localStorage.getItem(bookingsKey);
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    function saveUserBookings(email, bookings) {
+        const bookingsKey = `bookings_${email}`;
+        localStorage.setItem(bookingsKey, JSON.stringify(bookings));
+    }
+
+    function getUserFavourites(email) {
+        const favKey = `favourites_${email}`;
+        const saved = localStorage.getItem(favKey);
+        if (saved) return JSON.parse(saved);
+        return [
+            { id: "fightclub", title: "FIGHT CLUB", age: "18", rating: "★ 4.9" },
+            { id: "theboys", title: "The Boys", age: "18", rating: "★ 4.7" }
+        ];
+    }
+
+    function saveUserFavourites(email, favourites) {
+        const favKey = `favourites_${email}`;
+        localStorage.setItem(favKey, JSON.stringify(favourites));
+    }
+
+    function initUserDataIfNeeded(user) {
+        if (!user) return;
+        const email = user.email;
+        if (!user.phone) {
+            user.phone = "+7 (999) 222-3648";
+            user.registeredAt = "15 мая 2025";
+            localStorage.setItem(email, JSON.stringify(user));
+        }
+        const favKey = `favourites_${email}`;
+        if (!localStorage.getItem(favKey)) {
+            const defaultFav = [
+                { id: "fightclub", title: "FIGHT CLUB", age: "18", rating: "★ 4.9" },
+                { id: "theboys", title: "The Boys", age: "18", rating: "★ 4.7" }
+            ];
+            localStorage.setItem(favKey, JSON.stringify(defaultFav));
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderProfile() {
+        const user = getCurrentUser();
+        const container = document.getElementById('profileContent');
+        
+        if (!user) {
+            container.innerHTML = `
+                <div style="background: #111; padding: 3rem; border-radius: 32px; text-align: center; width: 100%;">
+                    <h3>Вы не авторизованы</h3>
+                    <p style="margin: 1rem 0; color: #aaa;">Пожалуйста, войдите в аккаунт, чтобы просмотреть личный кабинет.</p>
+                    <a href="index.html" style="background: #cd3c3c; color: white; padding: 0.7rem 1.5rem; border-radius: 40px; text-decoration: none;">Вернуться на главную</a>
+                </div>
+            `;
+            const headerName = document.getElementById('headerUserName');
+            if (headerName) headerName.innerText = 'Аккаунт';
+            return;
+        }
+
+        const headerName = document.getElementById('headerUserName');
+        if (headerName) headerName.innerText = user.name || user.email.split('@')[0];
+
+        const email = user.email;
+        const name = user.name || "Пользователь";
+        const phone = user.phone || "+7 (999) 222-3648";
+        const registeredAt = user.registeredAt || "15 мая 2025";
+        
+        const favourites = getUserFavourites(email);
+        const bookings = getUserBookings(email);
+        
+        container.innerHTML = `
+            <div class="profile-left">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Информация</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="user-info-row">
+                            <div class="user-avatar-large">
+                                ${name.charAt(0).toUpperCase()}
+                            </div>
+                            <div class="user-details">
+                                <h4>${escapeHtml(name)}</h4>
+                                <p>${escapeHtml(email)}</p>
+                            </div>
+                        </div>
+                        <div class="info-line">
+                            <span>Телефон</span>
+                            <span>${escapeHtml(phone)}</span>
+                        </div>
+                        <div class="info-line">
+                            <span>Дата регистрации</span>
+                            <span>${escapeHtml(registeredAt)}</span>
+                        </div>
+                        <button class="edit-btn" id="editProfileBtn">Редактировать</button>
+                        <button class="logout-btn" id="logoutProfileBtn">Выйти из аккаунта</button>
+                    </div>
+                </div>
+
+            <div class="profile-right">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>История бронирований</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="history-list" id="historyList">
+                            ${bookings.length === 0 ? '<div class="empty-state">У вас пока нет бронирований</div>' : 
+                                bookings.map(booking => `
+                                    <div class="history-item" data-booking-id="${booking.id}">
+                                        <div class="history-movie">
+                                            <h4>${escapeHtml(booking.movie)}</h4>
+                                            <p>${booking.age || "18+"} · ${escapeHtml(booking.seats || "Места не указаны")}</p>
+                                        </div>
+                                        <div class="history-details">
+                                            <div class="history-date">${escapeHtml(booking.date)}</div>
+                                            <div class="history-seats">${escapeHtml(booking.seats || "")}</div>
+                                            <button class="btn-cancel cancel-booking" data-id="${booking.id}">Отменить</button>
+                                        </div>
+                                    </div>
+                                `).join('')
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.querySelectorAll('.cancel-booking').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const bookingId = parseInt(btn.getAttribute('data-id'));
+                const updatedBookings = bookings.filter(b => b.id !== bookingId);
+                saveUserBookings(email, updatedBookings);
+                renderProfile();
+            });
+        });
+        
+        document.querySelectorAll('.remove-fav').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const favId = btn.getAttribute('data-id');
+                const updatedFavs = favourites.filter(f => f.id !== favId);
+                saveUserFavourites(email, updatedFavs);
+                renderProfile();
+            });
+        });
+        
+        const logoutBtn = document.getElementById('logoutProfileBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+        
+        const editBtn = document.getElementById('editProfileBtn');
+        if (editBtn) {
+            editBtn.addEventListener('click', () => {
+                document.getElementById('editName').value = user.name || '';
+                document.getElementById('editPhone').value = user.phone || '';
+                document.getElementById('editModal').style.display = 'flex';
+            });
+        }
+        
+        document.querySelectorAll('.fav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-fav')) return;
+                const movieId = item.getAttribute('data-movie-id');
+                alert(`🚀 Перенаправление на страницу фильма (демо). Фильм ID: ${movieId}`);
+            });
+        });
+    }
+    
+    const user = getCurrentUser();
+    initUserDataIfNeeded(user);
+    renderProfile();
+    
+    const editModal = document.getElementById('editModal');
+    const closeEditModal = document.querySelector('.close-edit-modal');
+    const saveEditBtn = document.getElementById('saveEditBtn');
+    
+    closeEditModal.onclick = () => { editModal.style.display = 'none'; };
+    window.onclick = (event) => { if (event.target === editModal) editModal.style.display = 'none'; };
+    
+    saveEditBtn.onclick = () => {
+        const user = getCurrentUser();
+        if (user) {
+            user.name = document.getElementById('editName').value || user.name;
+            user.phone = document.getElementById('editPhone').value || user.phone;
+            localStorage.setItem(user.email, JSON.stringify(user));
+            editModal.style.display = 'none';
+            renderProfile();
+            const headerName = document.getElementById('headerUserName');
+            if (headerName) headerName.innerText = user.name;
+            alert('Данные обновлены!');
+        }
+    };
+</script>
+
+</body>
+</html>
