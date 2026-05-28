@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Кинотеатр | Главная страница</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0c0c0c;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .search-wrapper {
+            min-width: 250px;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .account-icon {
+            cursor: pointer;
+            color: #e0e0e0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .account-icon:hover {
+            color: #cd3c3c;
+        }
+
+        .user-name {
+            color: white;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .user-avatar {
+            position: relative;
+        }
+
+        .user-dropdown {
+            position: fixed;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            min-width: 150px;
+            border: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .user-dropdown a:hover {
+            background: #2a2a2a;
+            color: #cd3c3c;
+        }
+
+        .hero {
+            position: relative;
+            background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.pinimg.com/736x/20/0c/6d/200c6d8192344ff3376e0729dc85f95f.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 3rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .movie-badge {
+            font-size: 0.85rem;
+            color: #b9b9b9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .movie-title {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .movie-number {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #cd3c3c;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            max-width: 580px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-watch {
+            background-color: #cd3c3c;
+            border: none;
+            padding: 0.85rem 2.2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-watch:hover {
+            background-color: #b12e2e;
+        }
+
+        .in-theaters {
+            font-size: 0.9rem;
+            color: #aaa;
+            border-left: 1px solid #444;
+            padding-left: 1rem;
+        }
+
+        .in-theaters strong {
+            color: white;
+        }
+
+        .section {
+            padding: 4rem 4rem 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .movies-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .movie-card {
+            flex: 1;
+            min-width: 200px;
+            background: #111111;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.2s;
+            border: 1px solid #262626;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #cd3c3c;
+        }
+
+        .movie-card-img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .movie-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover .movie-card-img img {
+            transform: scale(1.05);
+        }
+
+        .movie-card-info {
+            padding: 1.2rem;
+        }
+
+        .movie-card-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-card-info p {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+        }
+
+        .genre-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .genre-tag {
+            background: #1f1f1f;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #cdcdcd;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .genre-tag:hover {
+            background: #cd3c3c;
+            color: white;
+        }
+
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #252525;
+        }
+
+        .info-block h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .info-block p,
+        .info-block a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .info-block a:hover {
+            color: white;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ (СТИЛЬ КАК НА ФОТО) */
+        .movie-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .movie-modal-content {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            border-radius: 32px;
+            max-width: 1000px;
+            width: 90%;
+            padding: 2rem;
+            position: relative;
+            border: 1px solid rgba(205, 60, 60, 0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .close-movie-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-movie-modal:hover {
+            color: #cd3c3c;
+        }
+
+        .movie-modal-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .movie-modal-poster {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .movie-modal-poster img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .movie-modal-info {
+            flex: 2;
+        }
+
+        .movie-modal-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .movie-modal-sub {
+            color: #cd3c3c;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #cd3c3c;
+            padding-left: 0.8rem;
+        }
+
+        .actors-row {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .actor {
+            text-align: center;
+        }
+
+        .actor-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .actor-role {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
+        .movie-modal-desc {
+            color: #ccc;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .movie-details-row {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .detail-item {
+            font-size: 0.85rem;
+        }
+
+        .detail-label {
+            color: #888;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-weight: 600;
+        }
+
+        .watch-now-btn {
+            background: #cd3c3c;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .watch-now-btn:hover {
+            background: #a52a2a;
+            transform: scale(1.02);
+        }
+
+        /* Модальное окно авторизации */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-modal-content {
+            background: #111;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #cd3c3c;
+            position: relative;
+        }
+
+        .close-auth-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-auth-modal:hover {
+            color: #cd3c3c;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            color: #cd3c3c;
+            border-bottom: 2px solid #cd3c3c;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active-form {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #ccc;
+            font-size: 0.85rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #cd3c3c;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background: #cd3c3c;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #a52a2a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 4rem;
+            border-top: 1px solid #1e1e1e;
+            font-size: 0.8rem;
+            color: #6f6f6f;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+            .hero {
+                padding: 2rem 1.5rem;
+                min-height: 70vh;
+            }
+            .movie-title {
+                font-size: 3.5rem;
+            }
+            .section {
+                padding: 2rem 1.5rem;
+            }
+            .movies-grid {
+                flex-direction: column;
+            }
+            .info-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            .movie-modal-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">Cinema Booking</a>
+            <div class="nav-links">
+                <a href="movies.html">фильмы</a>
+                <a href="#">жанры</a>
+                <a href="#">о проекте</a>
+                <a href="#">контакты</a>
+            </div>
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search" id="globalSearch">
+            </div>
+            <div class="account-icon" id="accountBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="movie-badge">СМОТРЕТЬ</div>
+                <h1 class="movie-title">КРИК</h1>
+                <div class="movie-number">7</div>
+                <p class="description">
+                    Когда убийца с Призрачным лицом появляется в тихом городке, где Сидни Прескотт построила новую жизнь,
+                    сбываются ее самые мрачные опасения: следующей мишенью становится ее дочь.
+                    Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого, чтобы
+                    раз и навсегда положить конец кровопролитию.
+                </p>
+                <div class="button-group">
+                    <button class="btn-watch">СМОТРЕТЬ</button>
+                    <div class="in-theaters">
+                        <strong>В кино</strong><br>
+                        с 23-го мая.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Сейчас в кинотеатре</h2>
+            <div class="movies-grid" id="moviesGrid">
+                <div class="movie-card" data-movie="scream7">
+                    <div class="movie-card-img">
+                        <img src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Scream 7">
+                    </div>
+                    <div class="movie-card-info">
+                        <h4>Крик 7</h4>
+                        <p>Когда убийца с Призрачным лицом появляется в тихом городке, который построил Сидни Прескотт..</p>
+                        <p style="margin-top: 8px; color:#cd3c3c;">★ 4.8</p>
+                    </div>
+                </div>
+                <div class="movie-card" data-movie="mrandmrssmith">
+                    <div class="movie-card-img">
+                        <img src="https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg" alt="Mr. & Mrs. Smith">
+                    </div>
+                    <div class="movie-card-info">
+                        <h4>Мистер и Миссис Смитт</h4>
+                        <p>Джон и Джейн поженились не так давно, но они уже устали от брака.</p>
+                        <p style="margin-top: 8px; color:#cd3c3c;">★ 4.5</p>
+                    </div>
+                </div>
+                <div class="movie-card" data-movie="fightclub">
+                    <div class="movie-card-img">
+                        <img src="https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg" alt="Fight club">
+                    </div>
+                    <div class="movie-card-info">
+                        <h4>Бойцовский клуб</h4>
+                        <p>Бессонница, драки и мыло. Шедевр контркультуры Дэвида Финчера "это может быть"...</p>
+                        <p style="margin-top: 8px; color:#cd3c3c;">★ 4.2</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="info-row">
+                <div class="info-block">
+                    <h4>о проекте</h4>
+                    <p>«Cinema Booking» — Это платформа нового поколения для настоящих ценителей кино. Мы собрали лучшие фильмы ужасов, триллеры и драмы, а также обеспечили удобное бронирование билетов. Наш проект создан для тех, кто ценит кино и хочет быть в курсе последних новинок. Присоединяйтесь к сообществу уже сегодня!</p>
+                </div>
+                <div class="info-block">
+                    <h4>контакты</h4>
+                    <p>Адрес: Ул. Кино, 13, город Кино, 101000<br>
+                        Email: support@cinemabooking.com<br>
+                        Телефон: +7 (999) 123-45-67<br>
+                        Рабочие часы: ежедневно 10:00 - 22:00</p>
+                </div>
+                <div class="info-block">
+                    <h4>Бронирование</h4>
+                    <p>Бронируйте свои любимые фильмы онлайн. Выбирайте места, дату и время показа. Мы предлагаем специальные предложения для групп и дисконтные карты.</p>
+                    <a href="#" style="display: inline-block; margin-top: 8px; color: #cd3c3c;">Бронировать</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Cinema Booking — Все права защищены. Фильмы, афиши, расписание.</p>
+        <p style="margin-top: 10px;">🎬 Scream 7 · В кино с 23 мая · Билеты уже в продаже</p>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ (как на фото) -->
+    <div id="movieModal" class="movie-modal">
+        <div class="movie-modal-content">
+            <span class="close-movie-modal">&times;</span>
+            <div class="movie-modal-body">
+                <div class="movie-modal-poster">
+                    <img id="modalPoster" src="" alt="Movie poster">
+                </div>
+                <div class="movie-modal-info">
+                    <h1 id="modalTitle" class="movie-modal-title">Мистер и Миссис Смитт</h1>
+                    <div id="modalSub" class="movie-modal-sub">Брэд Питт и Анджелина Джоли</div>
+                    
+                    <div class="actors-row" id="actorsRow">
+                        <div class="actor">
+                            <div class="actor-name" id="actor1Name">Брэд Питт</div>
+                            <div class="actor-role" id="actor1Role">Анджелина Джоли</div>
+                        </div>
+                        <div class="actor">
+                            <div class="actor-name" id="actor2Name">Анджелина Джоли</div>
+                            <div class="actor-role" id="actor2Role">Джейн Смит</div>
+                        </div>
+                    </div>
+                    
+                    <p id="modalDesc" class="movie-modal-desc">Джон и Джейн поженились не так давно, но они уже устали от брака...</p>
+                    
+                    <div class="movie-details-row">
+                        <div class="detail-item">
+                            <div class="detail-label">Год выпуска</div>
+                            <div class="detail-value" id="modalYear">2005</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Страна</div>
+                            <div class="detail-value" id="modalCountry">США</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Жанр</div>
+                            <div class="detail-value" id="modalGenre">Боевик, комедия, триллер, криминал</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">В кино</div>
+                            <div class="detail-value" id="modalDate">с 20-го мая</div>
+                        </div>
+                    </div>
+                    
+                    <button class="watch-now-btn" id="modalWatchBtn">СМОТРЕТЬ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно авторизации -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-modal-content">
+            <span class="close-auth-modal">&times;</span>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="login">Вход</button>
+                <button class="tab-btn" data-tab="register">Регистрация</button>
+            </div>
+
+            <div id="login-form" class="form active-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="••••••">
+                </div>
+                <button class="submit-btn" id="doLogin">Войти</button>
+            </div>
+
+            <div id="register-form" class="form">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" id="regName" placeholder="Иван">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="regPassword" placeholder="••••••">
+                </div>
+                <button class="submit-btn" id="doRegister">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === ДАННЫЕ ФИЛЬМОВ ===
+        const moviesData = {
+    scream7: {
+        title: "КРИК 7",
+        sub: "Возвращение Призрачного лица",
+        poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg",
+        desc: "Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого и навсегда положить конец кровавой бойне.",
+        year: "2025",
+        country: "США",
+        genre: "Ужасы, Триллер, Слэшер",
+        date: "с 23 мая",
+        actor1: "Нив Кэмпбелл",
+        actor2: "Кортни Кокс",
+        role1: "Сидни Прескотт",
+        role2: "Гейл Уэзерс"
+    },
+    mrandmrssmith: {
+        title: "Мистер и миссис Смит",
+        sub: "Брэд Питт · Анджелина Джоли",
+        poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg",
+        desc: "Джон и Джейн поженились не так давно, но уже устали от брака. Они чувствуют, что есть что-то, что каждый предпочитает держать при себе. Оба они наёмные убийцы, которые тайно путешествуют по миру, выполняя опасные миссии. Эти секретные приключения становятся их общей судьбой в тот момент, когда Джейн получает заказ на Джона, а Джон — на Джейн.",
+        year: "2005",
+        country: "США",
+        genre: "Боевик, Комедия, Триллер, Криминал",
+        date: "с 20 мая",
+        actor1: "Брэд Питт",
+        actor2: "Анджелина Джоли",
+        role1: "Джон Смит",
+        role2: "Джейн Смит"
+    },
+    fightclub: {
+        title: "Бойцовский клуб",
+        sub: "Брэд Питт · Эдвард Нортон",
+        poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg",
+        desc: "Страдающий бессонницей депрессивный мужчина (Эдвард Нортон) встречает странного продавца мыла по имени Тайлер Дёрден (Брэд Питт) и вскоре оказывается живущим в его убогом доме после того, как его идеальная квартира разрушена. Двое скучающих мужчин организуют подпольный бойцовский клуб как радикальную форму психотерапии, но клуб быстро превращается во нечто гораздо более тёмное.",
+        year: "1999",
+        country: "США",
+        genre: "Драма, Триллер, Культовое кино",
+        date: "Повторный показ классики",
+        actor1: "Брэд Питт",
+        actor2: "Эдвард Нортон",
+        role1: "Тайлер Дёрден",
+        role2: "Рассказчик"
+    }
+};
+
+
+        // Элементы модального окна фильмов
+        const movieModal = document.getElementById('movieModal');
+        const closeMovieModal = document.querySelector('.close-movie-modal');
+        const modalPoster = document.getElementById('modalPoster');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSub = document.getElementById('modalSub');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalYear = document.getElementById('modalYear');
+        const modalCountry = document.getElementById('modalCountry');
+        const modalGenre = document.getElementById('modalGenre');
+        const modalDate = document.getElementById('modalDate');
+        const actor1Name = document.getElementById('actor1Name');
+        const actor1Role = document.getElementById('actor1Role');
+        const actor2Name = document.getElementById('actor2Name');
+        const actor2Role = document.getElementById('actor2Role');
+        const modalWatchBtn = document.getElementById('modalWatchBtn');
+
+        function openMovieModal(movieId) {
+            const movie = moviesData[movieId];
+            if (!movie) return;
+            modalPoster.src = movie.poster;
+            modalTitle.innerText = movie.title;
+            modalSub.innerText = movie.sub;
+            modalDesc.innerText = movie.desc;
+            modalYear.innerText = movie.year;
+            modalCountry.innerText = movie.country;
+            modalGenre.innerText = movie.genre;
+            modalDate.innerText = movie.date;
+            actor1Name.innerText = movie.actor1;
+            actor1Role.innerText = movie.role1;
+            actor2Name.innerText = movie.actor2;
+            actor2Role.innerText = movie.role2;
+            movieModal.style.display = 'flex';
+        }
+
+        closeMovieModal.onclick = () => { movieModal.style.display = 'none'; };
+        window.onclick = (event) => { if (event.target === movieModal) movieModal.style.display = 'none'; };
+        modalWatchBtn.onclick = () => { alert('Redirection to the viewing page'); };
+
+        // Навешиваем клики на карточки фильмов
+        document.querySelectorAll('.movie-card').forEach(card => {
+            const movieId = card.getAttribute('data-movie');
+            if (movieId) {
+                card.addEventListener('click', () => openMovieModal(movieId));
+            }
+        });
+
+        // === АВТОРИЗАЦИЯ ===
+        const accountBtn = document.getElementById('accountBtn');
+        const authModal = document.getElementById('authModal');
+        const closeAuthModal = document.querySelector('.close-auth-modal');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const loginFormDiv = document.getElementById('login-form');
+        const registerFormDiv = document.getElementById('register-form');
+        let currentUser = localStorage.getItem('currentUser');
+
+        function updateAccountIcon() {
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem(currentUser));
+                const userName = userData?.name || currentUser;
+                accountBtn.innerHTML = `<div class="user-name">${userName}</div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>`;
+                accountBtn.classList.add('user-avatar');
+            } else {
+                accountBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>`;
+                accountBtn.classList.remove('user-avatar');
+            }
+        }
+
+        accountBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentUser) {
+                let dropdown = document.querySelector('.user-dropdown');
+                if (dropdown) dropdown.remove();
+                dropdown = document.createElement('div');
+                dropdown.className = 'user-dropdown';
+                dropdown.innerHTML = '<a href="#" id="logoutBtn">Exit</a>';
+                document.body.appendChild(dropdown);
+                const rect = accountBtn.getBoundingClientRect();
+                dropdown.style.top = rect.bottom + 5 + 'px';
+                dropdown.style.right = window.innerWidth - rect.right + 'px';
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    localStorage.removeItem('currentUser');
+                    currentUser = null;
+                    updateAccountIcon();
+                    dropdown.remove();
+                });
+                setTimeout(() => {
+                    document.addEventListener('click', function removeDropdown(e) {
+                        if (dropdown && !dropdown.contains(e.target) && e.target !== accountBtn) {
+                            dropdown.remove();
+                            document.removeEventListener('click', removeDropdown);
+                        }
+                    });
+                }, 10);
+            } else {
+                authModal.style.display = 'flex';
+            }
+        });
+
+        closeAuthModal.addEventListener('click', () => authModal.style.display = 'none');
+        window.addEventListener('click', (e) => { if (e.target === authModal) authModal.style.display = 'none'; });
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                if (btn.dataset.tab === 'login') {
+                    loginFormDiv.classList.add('active-form');
+                    registerFormDiv.classList.remove('active-form');
+                } else {
+                    registerFormDiv.classList.add('active-form');
+                    loginFormDiv.classList.remove('active-form');
+                }
+            });
+        });
+
+        document.getElementById('doLogin').addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const userData = localStorage.getItem(email);
+            if (userData) {
+                const user = JSON.parse(userData);
+                if (user.password === password) {
+                    currentUser = email;
+                    localStorage.setItem('currentUser', email);
+                    updateAccountIcon();
+                    authModal.style.display = 'none';
+                    alert('Welcome, ' + user.name + '!');
+                    document.getElementById('loginEmail').value = '';
+                    document.getElementById('loginPassword').value = '';
+                } else {
+                    alert('Invalid password');
+                }
+            } else {
+                alert('The user was not found');
+            }
+        });
+
+        document.getElementById('doRegister').addEventListener('click', () => {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            if (name && email && password) {
+                if (localStorage.getItem(email)) {
+                    alert('The user with this email already exists');
+                } else {
+                    localStorage.setItem(email, JSON.stringify({ name, email, password }));
+                    alert('Registration is successful! Now log in.');
+                    document.querySelector('.tab-btn[data-tab="login"]').click();
+                    document.getElementById('regName').value = '';
+                    document.getElementById('regEmail').value = '';
+                    document.getElementById('regPassword').value = '';
+                }
+            } else {
+                alert('Fill in all the fields');
+            }
+        });
+
+        updateAccountIcon();
+
+        // Глобальный поиск (фильтрация карточек)
+        const globalSearch = document.getElementById('globalSearch');
+        if (globalSearch) {
+            globalSearch.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.movie-card');
+                cards.forEach(card => {
+                    const title = card.querySelector('h4')?.innerText.toLowerCase() || '';
+                    if (title.includes(query) || query === '') {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
