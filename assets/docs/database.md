@@ -112,7 +112,8 @@
 
 users (1) ─── (0-*) bookings
 movie (1) ─── (0-*) bookings
-movie (1) ─── (0-*) movie_genres (1) ─ (0-*) genres
+movie (1) ─── (0-*) movie_genres (1) - (0-*) genres
+statuses (1) ─── (0-*) bookings
 
 ### SQL-обозначения связей (при создании таблиц)
 
@@ -122,6 +123,9 @@ FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 
 -- movie -> bookings (один ко многим)
 FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
+
+-- statuses → bookings (один ко многим)
+FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE RESTRICT
 
 -- movie -> movie_genres (один ко многим)
 FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
