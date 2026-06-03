@@ -365,6 +365,156 @@
             transform: scale(1.02);
         }
 
+        /* МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ БИЛЕТОВ */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .booking-modal-content {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            border-radius: 32px;
+            max-width: 550px;
+            width: 90%;
+            padding: 2rem;
+            border: 1px solid rgba(205, 60, 60, 0.5);
+        }
+
+        .booking-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-modal-header h2 {
+            font-size: 1.5rem;
+            color: #cd3c3c;
+        }
+
+        .close-booking-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-booking-modal:hover {
+            color: #cd3c3c;
+        }
+
+        .cinema-screen {
+            background: #333;
+            height: 8px;
+            border-radius: 10px;
+            margin: 1rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cinema-screen::after {
+            content: "ЭКРАН";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .seats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .seat-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .row-label {
+            width: 40px;
+            font-weight: 600;
+            color: #ffb347;
+        }
+
+        .seats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.8rem;
+            border: 1px solid #444;
+        }
+
+        .seat:hover {
+            background: #cd3c3c;
+            transform: scale(1.05);
+        }
+
+        .seat.selected {
+            background: #cd3c3c;
+            border-color: #ff9999;
+            box-shadow: 0 0 10px rgba(205, 60, 60, 0.5);
+        }
+
+        .seat.occupied {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .booking-info {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 16px;
+        }
+
+        .selected-seats-info {
+            color: #ffb347;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirm-booking-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #cd3c3c;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .confirm-booking-btn:hover {
+            background: #a52a2a;
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -400,6 +550,11 @@
             .movie-modal-body {
                 flex-direction: column;
             }
+            .seat {
+                width: 30px;
+                height: 30px;
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
@@ -408,13 +563,14 @@
 <header>
     <div class="navbar">
         <a href="index.html" class="logo">Cinema Booking</a>
-        <div class="nav-links">
-            <a href="movies.html" class="active">фильмы</a>
-            <a href="#">жанры</a>
-            <a href="#">о проекте</a>
-            <a href="#">контакты</a>
-        </div>
-        <div class="search-wrapper">
+    <div class="nav-links">
+    <a href="movie.html" class="active">фильмы</a>
+    <a href="genres.html">жанры</a>
+    <a href="about.html">о проекте</a>
+    <a href="contacts.html">контакты</a>
+    <a href="admin.html">админ</a>
+    </div>
+    <div class="search-wrapper">
             <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
         </div>
         <a href="profile.html" class="account-icon" id="accountBtn">
@@ -423,6 +579,12 @@
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
             </svg>
+        <div class="nav-links">
+            <a href="movies.html" class="active">фильмы</a>
+            <a href="genres.html">жанры</a>
+            <a href="#">о проекте</a>
+            <a href="#">контакты</a>
+        </div>
         </a>
     </div>
 </header>
@@ -434,43 +596,43 @@
 
 <div class="movies-container">
     <div class="movies-grid-page" id="moviesGrid">
-        <div class="movie-card-page" data-movie="scream7">
+        <div class="movie-card-page" data-movie="scream7" data-movie-title="КРИК 7">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Scream 7">
             </div>
             <div class="movie-info-page">
                 <h3>КРИК 7</h3>
-                <div class="movie-age">18+ · Ужасы</div>
+                <div class="movie-age">18+ Ужасы</div>
                 <div class="movie-synopsis">Призрак возвращается. Сидни Прескотт должна встретиться лицом к лицу со своими самыми мрачными страхами, чтобы защитить свою семью. Последняя кровавая глава.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="readyornot">
+        <div class="movie-card-page" data-movie="readyornot" data-movie-title="Готов или нет">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/78/6c/b8/786cb8b688270e0f2fff80da566c064b.jpg" alt="Ready or Not">
             </div>
             <div class="movie-info-page">
                 <h3>Готов или нет <span style="color:#cd3c3c;">18+</span></h3>
-                <div class="movie-age">Ужасы · Комедия</div>
+                <div class="movie-age">Ужасы, Комедия</div>
                 <div class="movie-synopsis">Когда брачная ночь превращается в кровавую игру на выживание. Комедия ужасов с запутанным финалом.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="theboys">
+        <div class="movie-card-page" data-movie="theboys" data-movie-title="Пацаны">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/30/72/6d/30726dd11c0f4411f0e03219b1c0e5d6.jpg" alt="The Boys">
             </div>
             <div class="movie-info-page">
                 <h3>Пацаны <span style="color:#cd3c3c;">18+</span></h3>
-                <div class="movie-age">Боевик · Сатира</div>
+                <div class="movie-age">Боевик, Сатира</div>
                 <div class="movie-synopsis">Группа простых смертных сражается с коррумпированными супергероями в извращенном мире.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="homealone">
+        <div class="movie-card-page" data-movie="homealone" data-movie-title="Один дома">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/1200x/4e/27/8d/4e278d8db6710b3735140c5dcf4f3f71.jpg" alt="Home Alone">
             </div>
@@ -482,31 +644,31 @@
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="parasite">
+        <div class="movie-card-page" data-movie="parasite" data-movie-title="Паразиты">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/1200x/af/b7/bc/afb7bc6fa414a06b09a26cb0d191f3c9.jpg" alt="Parasite">
             </div>
             <div class="movie-info-page">
-                <h3>Паразит</h3>
-                <div class="movie-age">Триллер · Драма</div>
+                <h3>Паразиты</h3>
+                <div class="movie-age">Триллер, Драма</div>
                 <div class="movie-synopsis">Бедная семья пытается проникнуть в жизнь богатой семьи, что приводит к неожиданным последствиям.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="mrandmrssmith">
+        <div class="movie-card-page" data-movie="mrandmrssmith" data-movie-title="Мистер и миссис Смит">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg" alt="Mr and Mrs Smith">
             </div>
             <div class="movie-info-page">
                 <h3>Мистер и Миссис Смит <span style="color:#cd3c3c;">18+</span></h3>
-                <div class="movie-age">Боевик · Мелодрама</div>
+                <div class="movie-age">Боевик, Мелодрама</div>
                 <div class="movie-synopsis">Счастливая парочка секретных агентов получает задание убить друг друга. Боевик, полный пуль и страсти.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="fightclub">
+        <div class="movie-card-page" data-movie="fightclub" data-movie-title="Бойцовский клуб">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg" alt="Fight Club">
             </div>
@@ -518,13 +680,13 @@
             </div>
         </div>
 
-        <div class="movie-card-page" data-movie="americanvandal">
+        <div class="movie-card-page" data-movie="americanvandal" data-movie-title="Американский вандал">
             <div class="movie-img">
                 <img src="https://i.pinimg.com/736x/c7/67/c2/c767c2022f180e45b6f027f7eefd5b1f.jpg" alt="American Vandal">
             </div>
             <div class="movie-info-page">
                 <h3>Американский вандал</h3>
-                <div class="movie-age">Криминал · Псевдодокументальный</div>
+                <div class="movie-age">Криминал, Псевдодокументальный</div>
                 <div class="movie-synopsis">Настоящая криминальная сатира о школьной шалости, которая перерастает в расследование.</div>
                 <button class="btn-book">Забронировать билет</button>
             </div>
@@ -533,8 +695,8 @@
 </div>
 
 <footer>
-    <p>© 2025 Cinema Booking — Все фильмы всех жанров. Специальный выпуск Red screen.</p>
-    <p style="margin-top: 6px;">«Крик 7» уже в кинотеатрах — бронируйте билеты онлайн</p>
+    <p> 2025 Cinema Booking - Все фильмы всех жанров. Специальный выпуск Red screen.</p>
+    <p style="margin-top: 6px;">«Крик 7» уже в кинотеатрах - бронируйте билеты онлайн</p>
 </footer>
 
 <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМОВ -->
@@ -547,7 +709,7 @@
             </div>
             <div class="movie-modal-info">
                 <h1 id="modalTitle" class="movie-modal-title">Мистер и Миссис Смит</h1>
-                <div id="modalSub" class="movie-modal-sub">Брэд Питт · Анджелина Джоли</div>
+                <div id="modalSub" class="movie-modal-sub">Брэд Питт,  Анджелина Джоли</div>
                 
                 <div class="actors-row" id="actorsRow">
                     <div class="actor">
@@ -587,12 +749,33 @@
     </div>
 </div>
 
+<!-- МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ БИЛЕТОВ -->
+<div id="bookingModal" class="booking-modal">
+    <div class="booking-modal-content">
+        <div class="booking-modal-header">
+            <h2 id="bookingMovieTitle">Бронирование билетов</h2>
+            <span class="close-booking-modal">&times;</span>
+        </div>
+        
+        <div class="cinema-screen"></div>
+        
+        <div class="seats-container" id="seatsContainer"></div>
+        
+        <div class="booking-info">
+            <div class="selected-seats-info" id="selectedSeatsInfo">Выбранные места: нет</div>
+            <div class="selected-seats-info">Дата: <span id="bookingDate">сегодня</span></div>
+        </div>
+        
+        <button class="confirm-booking-btn" id="confirmBookingBtn">Подтвердить бронирование</button>
+    </div>
+</div>
+
 <script>
     // === ДАННЫЕ ФИЛЬМОВ ===
     const moviesData = {
         scream7: {
             title: "КРИК 7",
-            sub: "Возвращение Призрачного лица · Нив Кэмпбелл",
+            sub: "Возвращение Призрачного лица Нив Кэмпбелл",
             poster: "https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg",
             desc: "Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого и навсегда положить конец кровавой бойне.",
             year: "2025",
@@ -606,7 +789,7 @@
         },
         readyornot: {
             title: "Готов или нет",
-            sub: "Самара Уивинг · Адам Броди",
+            sub: "Самара Уивинг Адам Броди",
             poster: "https://i.pinimg.com/736x/78/6c/b8/786cb8b688270e0f2fff80da566c064b.jpg",
             desc: "Свадебная ночь невесты превращается в смертельную игру в прятки с её богатыми родственниками. Комедия ужасов, полная чёрного юмора и неожиданных поворотов.",
             year: "2019",
@@ -620,13 +803,13 @@
         },
         theboys: {
             title: "Пацаны",
-            sub: "Карл Урбан · Джек Куэйд",
+            sub: "Карл Урбан Джек Куэйд",
             poster: "https://i.pinimg.com/736x/30/72/6d/30726dd11c0f4411f0e03219b1c0e5d6.jpg",
             desc: "Группа самодеятельных мстителей, известных как «Пацаны», решает покончить с коррумпированными супергероями, которые злоупотребляют своими способностями. Темный, жестокий и сатирический сериал.",
             year: "2019",
             country: "США",
             genre: "Боевик, Сатира, Криминал",
-            date: "Сериал — стриминг",
+            date: "Сериал - стриминг",
             actor1: "Карл Урбан",
             actor2: "Джек Куэйд",
             role1: "Билли Бутчер",
@@ -634,13 +817,13 @@
         },
         homealone: {
             title: "Один дома",
-            sub: "Маколей Калкин · Джо Пеши",
+            sub: "Маколей Калкин Джо Пеши",
             poster: "https://i.pinimg.com/1200x/4e/27/8d/4e278d8db6710b3735140c5dcf4f3f71.jpg",
             desc: "Восьмилетний проказник должен защитить свой дом от двух грабителей, когда его случайно оставляют одного на время рождественских каникул.",
             year: "1990",
             country: "США",
             genre: "Комедия, Семейный",
-            date: "Классика — повторный показ",
+            date: "Классика - повторный показ",
             actor1: "Маколей Калкин",
             actor2: "Джо Пеши",
             role1: "Кевин МакКаллистер",
@@ -648,7 +831,7 @@
         },
         parasite: {
             title: "Паразиты",
-            sub: "Сон Кан Хо · Ли Сон Гюн",
+            sub: "Сон Кан Хо Ли Сон Гюн",
             poster: "https://i.pinimg.com/1200x/af/b7/bc/afb7bc6fa414a06b09a26cb0d191f3c9.jpg",
             desc: "Бедная семья внедряется в жизнь богатой семьи, что приводит к неожиданным и мрачным последствиям. Обладатель 4 премий Оскар.",
             year: "2019",
@@ -662,7 +845,7 @@
         },
         mrandmrssmith: {
             title: "Мистер и миссис Смит",
-            sub: "Брэд Питт · Анджелина Джоли",
+            sub: "Брэд Питт Анджелина Джоли",
             poster: "https://i.pinimg.com/736x/88/07/be/8807be4406dfea0f0e4320160ceba823.jpg",
             desc: "Джон и Джейн поженились не так давно, но уже устали от брака. Они чувствуют, что есть что-то, что каждый предпочитает держать при себе. Оба они наёмные убийцы, которые тайно путешествуют по миру, выполняя опасные миссии.",
             year: "2005",
@@ -676,7 +859,7 @@
         },
         fightclub: {
             title: "Бойцовский клуб",
-            sub: "Брэд Питт · Эдвард Нортон",
+            sub: "Брэд Питт Эдвард Нортон",
             poster: "https://i.pinimg.com/736x/32/8b/49/328b495bafb788e467c87ebd3fbff05b.jpg",
             desc: "Страдающий бессонницей депрессивный мужчина встречает странного продавца мыла и вскоре оказывается живущим в его убогом доме. Двое скучающих мужчин организуют подпольный бойцовский клуб как радикальную форму психотерапии, но клуб быстро превращается во нечто гораздо более тёмное.",
             year: "1999",
@@ -690,13 +873,13 @@
         },
         americanvandal: {
             title: "Американский вандал",
-            sub: "Тайлер Альварес · Гриффин Глюк",
+            sub: "Тайлер Альварес Гриффин Глюк",
             poster: "https://i.pinimg.com/736x/c7/67/c2/c767c2022f180e45b6f027f7eefd5b1f.jpg",
             desc: "Сатирическая криминальная драма, рассказывающая о последствиях школьной шалости, связанной с рисунками на машинах учителей. Умный и смешной псевдодокументальный сериал.",
             year: "2017",
             country: "США",
             genre: "Криминал, Псевдодокументальный, Комедия",
-            date: "Сериал — стриминг",
+            date: "Сериал - стриминг",
             actor1: "Тайлер Альварес",
             actor2: "Гриффин Глюк",
             role1: "Питер Мальдонадо",
@@ -704,7 +887,194 @@
         }
     };
 
-    // Элементы модального окна
+    // Конфигурация зала (ряды и места)
+    const SEATS_CONFIG = [
+        { row: "A", seats: [1, 2, 3, 4, 5, 6, 7, 8] },
+        { row: "B", seats: [1, 2, 3, 4, 5, 6, 7, 8] },
+        { row: "C", seats: [1, 2, 3, 4, 5, 6, 7, 8] },
+        { row: "D", seats: [1, 2, 3, 4, 5, 6, 7, 8] },
+        { row: "E", seats: [1, 2, 3, 4, 5, 6, 7, 8] }
+    ];
+
+    let currentBookingMovie = null;
+    let selectedSeats = [];
+    let occupiedSeats = [];
+
+    // Загрузка занятых мест из localStorage
+    function loadOccupiedSeats(movieId) {
+        const key = `occupied_seats_${movieId}`;
+        const saved = localStorage.getItem(key);
+        if (saved) {
+            occupiedSeats = JSON.parse(saved);
+        } else {
+            occupiedSeats = [];
+        }
+    }
+
+    // Сохранение занятых мест
+    function saveOccupiedSeats(movieId) {
+        const key = `occupied_seats_${movieId}`;
+        localStorage.setItem(key, JSON.stringify(occupiedSeats));
+    }
+
+    // Проверка авторизации
+    function isUserLoggedIn() {
+        return localStorage.getItem('currentUser') !== null;
+    }
+
+    // Получение текущего пользователя
+    function getCurrentUser() {
+        const userEmail = localStorage.getItem('currentUser');
+        if (!userEmail) return null;
+        const userData = localStorage.getItem(userEmail);
+        if (!userData) return null;
+        return JSON.parse(userData);
+    }
+
+    // Сохранение брони в профиль пользователя
+    function saveBookingToProfile(booking) {
+        const user = getCurrentUser();
+        if (!user) return false;
+        
+        const email = user.email;
+        const bookingsKey = `bookings_${email}`;
+        const saved = localStorage.getItem(bookingsKey);
+        let bookings = saved ? JSON.parse(saved) : [];
+        
+        const newBooking = {
+            id: Date.now(),
+            movie: booking.movieTitle,
+            date: new Date().toLocaleDateString('ru-RU') + " " + new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+            seats: booking.seats,
+            row: booking.row,
+            age: "18+"
+        };
+        
+        bookings.unshift(newBooking);
+        localStorage.setItem(bookingsKey, JSON.stringify(bookings));
+        return true;
+    }
+
+    // Открытие модального окна бронирования
+    function openBookingModal(movieTitle, movieId) {
+        if (!isUserLoggedIn()) {
+            alert('Пожалуйста, войдите в аккаунт, чтобы забронировать билеты');
+            return;
+        }
+        
+        currentBookingMovie = { title: movieTitle, id: movieId };
+        selectedSeats = [];
+        loadOccupiedSeats(movieId);
+        
+        document.getElementById('bookingMovieTitle').innerText = `Бронирование: ${movieTitle}`;
+        
+        // Устанавливаем дату на сегодня + 1 день
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('bookingDate').innerText = tomorrow.toLocaleDateString('ru-RU') + " 19:00";
+        
+        renderSeats();
+        document.getElementById('bookingModal').style.display = 'flex';
+    }
+
+    // Отрисовка схемы зала
+    function renderSeats() {
+        const container = document.getElementById('seatsContainer');
+        container.innerHTML = '';
+        
+        SEATS_CONFIG.forEach(rowData => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'seat-row';
+            
+            const rowLabel = document.createElement('div');
+            rowLabel.className = 'row-label';
+            rowLabel.innerText = rowData.row;
+            rowDiv.appendChild(rowLabel);
+            
+            const seatsDiv = document.createElement('div');
+            seatsDiv.className = 'seats';
+            
+            rowData.seats.forEach(seatNum => {
+                const seatId = `${rowData.row}${seatNum}`;
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.innerText = seatNum;
+                
+                if (occupiedSeats.includes(seatId)) {
+                    seat.classList.add('occupied');
+                    seat.style.cursor = 'not-allowed';
+                }
+                
+                if (selectedSeats.includes(seatId)) {
+                    seat.classList.add('selected');
+                }
+                
+                seat.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (occupiedSeats.includes(seatId)) {
+                        alert('Это место уже занято');
+                        return;
+                    }
+                    
+                    if (selectedSeats.includes(seatId)) {
+                        selectedSeats = selectedSeats.filter(s => s !== seatId);
+                        seat.classList.remove('selected');
+                    } else {
+                        selectedSeats.push(seatId);
+                        seat.classList.add('selected');
+                    }
+                    
+                    updateSelectedSeatsInfo();
+                });
+                
+                seatsDiv.appendChild(seat);
+            });
+            
+            rowDiv.appendChild(seatsDiv);
+            container.appendChild(rowDiv);
+        });
+        
+        updateSelectedSeatsInfo();
+    }
+
+    function updateSelectedSeatsInfo() {
+        const infoDiv = document.getElementById('selectedSeatsInfo');
+        if (selectedSeats.length === 0) {
+            infoDiv.innerText = 'Выбранные места: нет';
+        } else {
+            infoDiv.innerText = `Выбранные места: ${selectedSeats.join(', ')}`;
+        }
+    }
+
+    // Подтверждение бронирования
+    function confirmBooking() {
+        if (selectedSeats.length === 0) {
+            alert('Пожалуйста, выберите хотя бы одно место');
+            return;
+        }
+        
+        // Сохраняем занятые места
+        occupiedSeats.push(...selectedSeats);
+        saveOccupiedSeats(currentBookingMovie.id);
+        
+        // Сохраняем бронь в профиль
+        const bookingResult = saveBookingToProfile({
+            movieTitle: currentBookingMovie.title,
+            seats: selectedSeats.join(', '),
+            row: selectedSeats.map(s => s[0]).join(', ')
+        });
+        
+        if (bookingResult) {
+            alert(`Билеты успешно забронированы!\nФильм: ${currentBookingMovie.title}\nМеста: ${selectedSeats.join(', ')}`);
+            document.getElementById('bookingModal').style.display = 'none';
+            selectedSeats = [];
+        } else {
+            alert('Ошибка при бронировании. Пожалуйста, войдите в аккаунт.');
+        }
+    }
+
+    // Элементы модального окна фильмов
     const movieModal = document.getElementById('movieModal');
     const closeMovieModal = document.querySelector('.close-movie-modal');
     const modalPoster = document.getElementById('modalPoster');
@@ -740,17 +1110,21 @@
     }
 
     closeMovieModal.onclick = () => { movieModal.style.display = 'none'; };
-    window.onclick = (event) => { if (event.target === movieModal) movieModal.style.display = 'none'; };
-    modalWatchBtn.onclick = () => { alert('Перенаправление на страницу просмотра (демо-режим)'); };
+    window.onclick = (event) => { 
+        if (event.target === movieModal) movieModal.style.display = 'none';
+        if (event.target === document.getElementById('bookingModal')) document.getElementById('bookingModal').style.display = 'none';
+    };
+    modalWatchBtn.onclick = () => { alert('Перенаправление на страницу просмотра'); };
 
     // Навешиваем клики на карточки фильмов
     document.querySelectorAll('.movie-card-page').forEach(card => {
         const movieId = card.getAttribute('data-movie');
+        const movieTitle = card.getAttribute('data-movie-title');
         if (movieId) {
             card.addEventListener('click', (e) => {
                 if (e.target.classList.contains('btn-book')) {
                     e.stopPropagation();
-                    alert('Билет успешно забронирован. Спасибо за выбор Cinema Booking!');
+                    openBookingModal(movieTitle, movieId);
                     return;
                 }
                 openMovieModal(movieId);
@@ -763,9 +1137,23 @@
     bookBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            alert('Билет успешно забронирован. Спасибо за выбор Cinema Booking!');
+            const card = btn.closest('.movie-card-page');
+            const movieTitle = card.getAttribute('data-movie-title');
+            const movieId = card.getAttribute('data-movie');
+            openBookingModal(movieTitle, movieId);
         });
     });
+
+    // Закрытие модального окна бронирования
+    const closeBookingModal = document.querySelector('.close-booking-modal');
+    if (closeBookingModal) {
+        closeBookingModal.onclick = () => { document.getElementById('bookingModal').style.display = 'none'; };
+    }
+    
+    const confirmBtn = document.getElementById('confirmBookingBtn');
+    if (confirmBtn) {
+        confirmBtn.onclick = confirmBooking;
+    }
 
     // Поиск фильмов
     const searchField = document.getElementById('globalSearch');
@@ -784,7 +1172,7 @@
         });
     }
 
-    // Обновление имени пользователя в шапке (если авторизован)
+    // Обновление имени пользователя в шапке
     function updateHeaderUserName() {
         const currentUserEmail = localStorage.getItem('currentUser');
         const headerUserName = document.getElementById('headerUserName');
