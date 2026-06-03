@@ -1,0 +1,29 @@
+1. Создана структура папок:
+   - public/
+   - src/config/
+   - src/helpers/
+   - src/models/
+   - admin/
+
+2. Настроено подключение к БД через PDO:
+   - Файл: src/config/database.php
+   - Параметры: localhost, cinema_booking, root, пустой пароль
+
+3. Создана модель MovieModel.php:
+   - Функция getAllMovies() - получение всех фильмов
+   - Функция getMovieById() - получение фильма по ID
+
+4. Создана страница каталога public/index.php:
+   - Вывод фильмов в виде карточек
+   - Использование fetchAll() для получения данных
+
+5. Создана функция e() для безопасного вывода:
+   - Файл: src/helpers/response.php
+   - Защита от XSS-атак через htmlspecialchars
+
+6. Созданы функции для JSON-ответов:
+   - jsonResponse()
+   - jsonSuccess()
+   - jsonError()
+
+Проверка выполнена: страница каталога работает, данные выводятся.
