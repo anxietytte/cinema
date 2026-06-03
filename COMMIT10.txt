@@ -1,0 +1,8 @@
+Созданные файлы:
+- public/index.php
+- src/config/database.php
+- src/models/MovieModel.php
+- src/helpers/response.php
+
+Подключение к базе данных cinema_booking работает.
+Данные из таблицы movie выводятся на странице.
