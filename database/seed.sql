@@ -13,7 +13,7 @@ INSERT INTO statuses (name, code, description, sort_order, color) VALUES
 
 -- 2. Добавление жанров (категории)
 
-INSERT INTO genres (name, description, icon, color) VALUES
+INSERT INTO genres (name, description, color) VALUES
 ('Ужасы', 'Захватывающие фильмы, от которых кровь стынет в жилах', '#cd3c3c'),
 ('Триллер', 'Напряжённые сюжеты и неожиданные развязки', '#ff6b35'),
 ('Боевик', 'Динамичные сцены, погони и перестрелки', '#e74c3c'),
