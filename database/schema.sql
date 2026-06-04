@@ -1,5 +1,4 @@
 -- БАЗА ДАННЫХ "CINEMA BOOKING"
--- Назначение: Создание структуры базы данных
 
 -- Создание бд
 CREATE DATABASE IF NOT EXISTS cinema_booking
