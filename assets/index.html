@@ -283,171 +283,6 @@
             color: white;
         }
 
-        /* ========== МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМА ========== */
-        .movie-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .movie-modal-content {
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            border-radius: 32px;
-            max-width: 1000px;
-            width: 90%;
-            padding: 2rem;
-            position: relative;
-            border: 1px solid rgba(205, 60, 60, 0.5);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            color: #aaa;
-            cursor: pointer;
-            transition: 0.2s;
-            z-index: 10;
-        }
-
-        .close-modal:hover {
-            color: #cd3c3c;
-        }
-
-        .modal-body {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .modal-poster {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .modal-poster img {
-            width: 100%;
-            border-radius: 24px;
-            object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-info {
-            flex: 2;
-        }
-
-        .modal-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 0.25rem;
-            color: #fff;
-        }
-
-        .modal-title span {
-            color: #cd3c3c;
-            font-size: 1.5rem;
-        }
-
-        .modal-sub {
-            color: #cd3c3c;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            border-left: 3px solid #cd3c3c;
-            padding-left: 0.8rem;
-        }
-
-        .actors-row {
-            display: flex;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .actor {
-            text-align: center;
-        }
-
-        .actor-name {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .actor-role {
-            font-size: 0.7rem;
-            color: #aaa;
-        }
-
-        .modal-desc {
-            color: #ccc;
-            line-height: 1.6;
-            margin: 1rem 0;
-        }
-
-        .modal-details-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-            padding: 1rem 0;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-        }
-
-        .detail-item {
-            font-size: 0.85rem;
-        }
-
-        .detail-label {
-            color: #888;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-        }
-
-        .detail-value {
-            font-weight: 600;
-        }
-
-        .modal-watch-btn {
-            background: #cd3c3c;
-            border: none;
-            padding: 0.9rem 2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            color: white;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 0.5rem;
-            width: 100%;
-        }
-
-        .modal-watch-btn:hover {
-            background: #a52a2a;
-            transform: scale(1.02);
-        }
-
         footer {
             text-align: center;
             padding: 2rem 4rem;
@@ -481,12 +316,6 @@
                 gap: 1rem;
                 flex-wrap: wrap;
             }
-            .modal-title {
-                font-size: 1.8rem;
-            }
-            .modal-body {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -497,10 +326,10 @@
         <div class="navbar">
             <a href="index.html" class="logo">Cinema Booking</a>
             <div class="nav-links">
-                <a href="movie.html">фильмы</a>
-                <a href="genres.html">жанры</a>
-                <a href="about.html">о проекте</a>
-                <a href="contacts.html">контакты</a>
+            <a href="movie.html">фильмы</a>
+            <a href="genres.html">жанры</a>
+            <a href="about.html">о проекте</a>
+            <a href="contacts.html">контакты</a>
             </div>
             <div class="search-wrapper">
                 <input type="text" class="search-input" placeholder="Поиск" id="globalSearch">
@@ -528,7 +357,7 @@
                     раз и навсегда положить конец кровопролитию.
                 </p>
                 <div class="button-group">
-                    <button class="btn-watch" id="openMovieModalBtn">СМОТРЕТЬ СЕЙЧАС</button>
+                    <button class="btn-watch">СМОТРЕТЬ СЕЙЧАС</button>
                     <div class="in-theaters">
                         <strong>В кинотеатрах</strong><br>
                         с 23 мая.
@@ -589,7 +418,7 @@
                 <div class="info-block">
                     <h4>бронирование</h4>
                     <p>Бронируйте свои любимые фильмы онлайн. Выбирайте места, дату и время показа. Мы предлагаем специальные предложения для групп и дисконтные карты.</p>
-                    <a href="#" style="display: inline-block; margin-top: 8px; color: #cd3c3c;">Забронировать можно во вкладке "Фильмы"</a>
+                    <a href="#" style="display: inline-block; margin-top: 8px; color: #cd3c3c;">Забронировать →</a>
                 </div>
             </div>
         </section>
@@ -599,70 +428,6 @@
         <p> 2025 Cinema Booking - Все права защищены. Фильмы, афиши, расписание.</p>
         <p style="margin-top: 10px;">Крик 7 В кино с 23 мая Билеты уже в продаже</p>
     </footer>
-
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМА КРИК 7 -->
-    <div id="movieModal" class="movie-modal">
-        <div class="movie-modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="modal-poster">
-                    <img id="modalPoster" src="https://i.pinimg.com/736x/e4/ed/df/e4eddf98d81ae630a431d6d6bd1fef2c.jpg" alt="Крик 7 постер">
-                </div>
-                <div class="modal-info">
-                    <h1 class="modal-title">КРИК <span>7</span></h1>
-                    <div class="modal-sub">Возвращение легендарного убийцы в маске</div>
-                    
-                    <div class="actors-row">
-                        <div class="actor">
-                            <div class="actor-name">Нив Кэмпбелл</div>
-                            <div class="actor-role">Сидни Прескотт</div>
-                        </div>
-                        <div class="actor">
-                            <div class="actor-name">Кортни Кокс</div>
-                            <div class="actor-role">Гейл Уэзерс</div>
-                        </div>
-                        <div class="actor">
-                            <div class="actor-name">Дэвид Аркетт</div>
-                            <div class="actor-role">Дьюи Райли</div>
-                        </div>
-                    </div>
-                    
-                    <p class="modal-desc">
-                        Когда Призрачное лицо появляется в тихом городке, где Сидни Прескотт построила новую жизнь, 
-                        её самые страшные кошмары становятся реальностью: её дочь становится следующей целью. 
-                        Чтобы защитить свою семью, Сидни должна встретиться лицом к лицу с ужасами прошлого 
-                        и навсегда положить конец кровавой бойне. Финальная глава культовой франшизы, 
-                        которая заставит вас вспомнить все секреты прошлого.
-                    </p>
-                    
-                    <div class="modal-details-row">
-                        <div class="detail-item">
-                            <div class="detail-label">Год выпуска</div>
-                            <div class="detail-value">2025</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Страна</div>
-                            <div class="detail-value">США</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Жанр</div>
-                            <div class="detail-value">Ужасы, Триллер, Слэшер</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Длительность</div>
-                            <div class="detail-value">125 минут</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Рейтинг</div>
-                            <div class="detail-value" style="color: #ffb347;">4.8 / 10</div>
-                        </div>
-                    </div>
-                    
-                    <button class="modal-watch-btn" id="modalWatchNowBtn">СМОТРЕТЬ ТРЕЙЛЕР</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Обновление имени пользователя в шапке
@@ -682,44 +447,6 @@
         }
 
         updateHeaderUserName();
-
-        // МОДАЛЬНОЕ ОКНО ДЛЯ ФИЛЬМА 
-        
-
-        const modal = document.getElementById('movieModal');
-        const openModalBtn = document.getElementById('openMovieModalBtn');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const modalWatchBtn = document.getElementById('modalWatchNowBtn');
-
-        // Открытие модального окна
-        function openModal() {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
-        }
-
-        // Закрытие модального окна
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = ''; // Восстанавливаем прокрутку
-        }
-
-        // Клик по кнопке "СМОТРЕТЬ СЕЙЧАС"
-        if (openModalBtn) {
-            openModalBtn.addEventListener('click', openModal);
-        }
-
-        // Клик по крестику
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', closeModal);
-        }
-
-        // Клик по фону (вне модального окна)
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
     </script>
 </body>
 
