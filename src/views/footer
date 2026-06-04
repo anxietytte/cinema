@@ -1,0 +1,8 @@
+</main>
+<footer>
+    <p>2025 Cinema Booking - Все права защищены. Фильмы, афиши, расписание.</p>
+</footer>
+</div>
+<script src="<?= e(publicUrl('assets/js/app.js')) ?>"></script>
+</body>
+</html>
